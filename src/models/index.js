@@ -1,4 +1,6 @@
-const POSTGRES_URI = 'postgres://postgres@localhost:5432/mid_project';
+require('dotenv').config()
+const POSTGRES_URI=`${process.env.DATABASE_URL}`
+
 const { Sequelize, DataTypes } = require('sequelize');
 var sequelize = new Sequelize(POSTGRES_URI, {});
 

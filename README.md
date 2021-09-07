@@ -68,3 +68,7 @@
 context Diagram
 
 ![contextDigram](contextDigram.png)
+
+# env file
+
+DATABASE_URL=postgres://ozcckfki:fnVB2nqDZFNYG4AizPI1_QSxZ8Yv0Z7Y@chunee.db.elephantsql.com/ozcckfki
