@@ -1,3 +1,8 @@
+require('dotenv').config();const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET || 'goldteam';
+
+
 
 const userModel = (sequelize, DataTypes) => {
     const model = sequelize.define('users', {
@@ -25,9 +30,9 @@ const userModel = (sequelize, DataTypes) => {
         required: true,
         defaultValue: 'user'
       },
-      admin_id:{
-        type: DataTypes.INTEGER,
-      },
+      // admin_id:{
+      //   type: DataTypes.INTEGER,
+      // },
 
      
       capabilities: {
@@ -44,7 +49,30 @@ const userModel = (sequelize, DataTypes) => {
       }
     });
   
-    
+    model.beforeCreate(async (user) => {
+      let hashedPass = await bcrypt.hash(user.user_password, 10);
+      user.user_password = hashedPass;
+    })
+  
+    model.authenticateBasic = async function (user_name, user_password) {
+      const user = await this.findOne({ where: { user_name } });
+      const valid = await bcrypt.compare(user_password, user.user_password);
+      if (valid) { return user; }
+      throw new Error('Invalid User');
+    };
+
+    model.authenticateToken = async function (token) {
+      try {
+        const parsedToken = jwt.verify(token, SECRET);
+        const user = await this.findOne({ where: { user_name: parsedToken.user_name } });
+        if (user) { return user; }
+        throw new Error("User Not Found");
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    };
+  
+  
   
     return model;
   }

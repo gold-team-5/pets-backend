@@ -39,10 +39,10 @@ petModel.belongsTo(userModel, { foreignKey: 'user_id', targetKey: 'id' });
 
 module.exports = {
     db: sequelize,
-    users: users,
-    product:product,
-    book:book,
-    pet:pet
+    userModel:userModel,
+    productModel:productModel,
+    BookModel:BookModel,
+    petModel:petModel
 
 
 
