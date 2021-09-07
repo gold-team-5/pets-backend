@@ -1,12 +1,11 @@
 "use strict";
 
-module.exports = async (test) => {
-  const booking = require("../models/index"); // Required table from Data Base //  booking
+module.exports = (booking) => {
+  // console.log("5555555");
+  return async (req, res, next) => {
+    const id = req.params.id; //  Check the id
+    const bookDta = await booking.findOne({ where: { id } });
 
-  const id = req.params.id; //  Check the id
-  const bookDta = await booking.findOne({ where: { id } });
-
-  return (req, res, next) => {
     if (bookDta.foreignKey == req.user.id) {
       next();
     } else {

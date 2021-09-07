@@ -70,6 +70,6 @@ router.delete(
   deleteBook
 ); //  by admin
 
-router.put("/delbook/:id", bearer(users), updateBookUser); //  just by user // back to check userBooking !!
+router.put("/delbook/:id", bearer(users), userBooking(booking), updateBookUser); //  just by user // back to check userBooking !!
 
 module.exports = router;
