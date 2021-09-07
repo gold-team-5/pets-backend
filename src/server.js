@@ -1,3 +1,4 @@
+
 'use strict';
 const express = require('express');
 const app = express();
@@ -7,6 +8,9 @@ const authRoutes = require('./routes/routes');
 const productRoute=require('./routes/productRoutes')
 app.use( productRoute)
 
+const router = require("./routs/mainRout");
+app.use(router);
+
 app.use(authRoutes);
 module.exports = {
     server: app,
@@ -15,9 +19,4 @@ module.exports = {
     }
 }
 
-// module.exports = {
-//     server,
-//     start: port => {
-//         server.listen(port, () => console.log(`Server is up on port ${port}`));
-//     }
-// }
+
