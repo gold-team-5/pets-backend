@@ -11,17 +11,13 @@ const productModel = (sequelize, DataTypes) => {
      
       },
      product_price:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
-    //   admin_id:{
-    //     type: DataTypes.INTEGER,
-    //   },
+    
       user_id:{
         type: DataTypes.INTEGER,
       }
-     
-           
-            
+       
    
     });
   

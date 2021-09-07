@@ -1,20 +1,11 @@
 'use strict';
-
 module.exports = (capability) => {
-
   return (req, res, next) => {
-
-    try {
-      if (req.user.capabilities.includes(capability)) {
-        next();
-      }
-      else {
-        next('Access Denied');
-      }
-    } catch (e) {
-      next('Invalid Login');
-    }
-
+    /// we should decode the jwt and get all the capabilities 
+   
+    if (req.user.capabilities.includes(capability)) {
+      
+      next();
+    } else { next('Access Denied'); }
   }
-
 }
