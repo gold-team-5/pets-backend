@@ -4,6 +4,8 @@ const app = express();
 app.use(express.json())
 
 const authRoutes = require('./routes/routes');
+const productRoute=require('./routes/productRoutes')
+app.use( productRoute)
 
 app.use(authRoutes);
 module.exports = {

@@ -3,32 +3,31 @@
 const express = require("express");
 const authRoutes = express.Router();
 
-const {userModel}  = require("../models");
+const {userModel}  = require("../models/index");
 const basicAuth = require("../middleware/basic");
-const signupCheck = require("../middleware/signupCheck");
-// const bearerAuth = require("../middleware/bearer");
+//const signupCheck = require("../middleware/signupCheck");
+const bearerAuth = require("../middleware/bearer");
 // const permissions = require("../middleware/acl.js");
 
-authRoutes.post("/signup", signupCheck,async (req, res, next) => {
+authRoutes.post("/signup",async (req, res) => {
   try {
     let userRecord = await userModel.create(req.body);
 
-    const output = {
-      user: userRecord
-
-  
-    };
-    res.status(201).json(output);
+    
+    res.status(201).json(userRecord);
   } catch (e) {
-    next(e.message);
+    console.log(e.message,'................................');
+ res.send(e.message);
   }
 });
 
-authRoutes.post("/signin", basicAuth, (req, res, next) => {
+authRoutes.post("/signin", basicAuth(userModel), (req, res) => {
   const user = {
     user: req.user,
     token: req.user.token,
+    capabilities:req.user.capabilities
   };
+  console.log(user);
   res.status(200).json(user);
 });
 

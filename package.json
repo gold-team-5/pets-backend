@@ -1,7 +1,6 @@
 {
   "name": "pets-backend",
   "version": "1.0.0",
-  "description": "## siginin/siginup Routs | method      |                      link           |   Description             | | ----------- | ------------------------------------|--------------------------| |    post     |  siginup/user                       | sigin up for admin          | |    post     |      siginup/admin                  |  sigin up for user  | |   post      |     siginin/user                    |     sigin in for user | |    post     |       siginin/admin                 |          sigin in for admin|",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
