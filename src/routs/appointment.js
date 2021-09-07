@@ -1,15 +1,15 @@
 "use strict";
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const users = require("../models/index"); // Required table from Data Base //  Users
-const pet = require("../models/index"); // Required table from Data Base //  pet
-const booking = require("../models/index"); // Required table from Data Base //  booking
+const userModel = require("../models/index");
+const petModel = require("../models/index");
+const BookModel = require("../models/index");
 
 // get
 
 // Show all booking
 async function getAllBooking(req, res) {
-  let allData = await booking.findall({});
+  let allData = await BookModel.findall({});
 
   res.status(200).json(allData);
 }
@@ -21,13 +21,13 @@ async function getAllBooking(req, res) {
 async function updateBook(req, res) {
   const id = req.params.id; //  Check the id
 
-  const bookDta = await booking.findOne({ where: { id } });
+  const bookDta = await BookModel.findOne({ where: { id } });
 
   if (bookDta.status == true) {
     let obj = bookDta;
     obj.status = false;
 
-    await booking.update({ where: { id, obj } });
+    await BookModel.update({ where: { id, obj } });
 
     res.status(202).json(`Booking done 😀`);
   } else {
@@ -43,7 +43,7 @@ async function updateBook(req, res) {
 async function deleteBook(req, res) {
   const id = req.params.id; //  Check the id
 
-  await booking.destroy({ where: { id } });
+  await BookModel.destroy({ where: { id } });
 
   res.status(200).json(`id : ${id} --- Successfully Book Deleted`);
 }
@@ -52,13 +52,13 @@ async function deleteBook(req, res) {
 async function updateBookUser(req, res) {
   const id = req.params.id; //  Check the id
 
-  const bookDta = await booking.findOne({ where: { id } });
+  const bookDta = await BookModel.findOne({ where: { id } });
 
   if (bookDta.status == false) {
     let obj = bookDta;
     obj.status = true;
 
-    await booking.update({ where: { id, obj } });
+    await BookModel.update({ where: { id, obj } });
 
     res.status(202).json(`Booking done 😀`);
   } else {

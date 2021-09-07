@@ -1,12 +1,12 @@
 "use strict";
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const users = require("../models/index"); // Required table from Data Base //  Users
-const pet = require("../models/index"); // Required table from Data Base //  pet
+const userModel = require("../models/index");
+const petModel = require("../models/index");
 
 // Show all pet
 async function getAllPet(req, res) {
-  let allData = await pet.findall({});
+  let allData = await petModel.findall({});
 
   res.status(200).json(allData);
 }
@@ -15,7 +15,7 @@ async function getAllPet(req, res) {
 async function getSpecificPet(req, res) {
   const type = req.params.type; //  Check the type
 
-  let petData = await pet.findall({ where: { type } });
+  let petData = await petModel.findall({ where: { type } });
 
   res.status(200).json(petData);
 }
@@ -23,14 +23,14 @@ async function getSpecificPet(req, res) {
 // Delete Specific pet
 async function deletePet(req, res) {
   const id = req.params.id; //  Check the id
-  await pet.destroy({ where: { id } });
+  await petModel.destroy({ where: { id } });
 
   res.status(200).json(`id : ${id} --- Successfully Deleted`);
 }
 
 // add pet
 async function addPet(req, res) {
-  pet
+  petModel
     .create(req.body)
     .then((newPet) => res.status(201).send(newPet))
     .catch((err) => res.status(400).send(err));
@@ -40,7 +40,7 @@ async function addPet(req, res) {
 async function updatePet(req, res) {
   const id = req.params.id; //  Check the id
   const obj = req.body;
-  await pet.update({ where: { id, obj } });
+  await petModel.update({ where: { id, obj } });
 
   res.status(202).json(`id : ${id} --- Successfully Update`);
 }
