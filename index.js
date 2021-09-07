@@ -10,3 +10,4 @@ db.sync()
     })
     .catch(console.error);
  
+// server.start(5002);
