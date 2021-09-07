@@ -9,9 +9,9 @@ const permissionsAccess = require("../middleWare/permissionsAccess");
 const userBooking = require("../middleWare/userBooking");
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const users = require("../models/index"); // Required table from Data Base //  Users
-const pet = require("../models/index"); // Required table from Data Base //  pet
-const booking = require("../models/index"); // Required table from Data Base //  booking
+const userModel = require("../models/index");
+const petModel = require("../models/index");
+const BookModel = require("../models/index");
 
 // import all function
 const { getAll, getAllUsers, getSpecificUser, deleteUser } = require("./admin");
@@ -32,11 +32,11 @@ const {
 ///// admin //////
 
 router.get("/admin", getAll); //  Show all admins
-router.get("/users", bearer(users), getAllUsers);
-router.get("/users/:id", bearer(users), getSpecificUser);
+router.get("/users", bearer(userModel), getAllUsers);
+router.get("/users/:id", bearer(userModel), getSpecificUser);
 router.delete(
   "/users/:id",
-  bearer(users),
+  bearer(userModel),
   permissionsAccess("delete"),
   deleteUser
 ); //  check delete capabity in DB
@@ -61,7 +61,7 @@ router.post("/adapt", bearer(admin), permissionsAccess("add"), addPet); // by  a
 
 router.get("/appointment", getAllBooking); // by user or admin
 
-router.put("/book/:id", bearer(users), updateBook); // just by user
+router.put("/book/:id", bearer(userModel), updateBook); // just by user
 
 router.delete(
   "/appointment/:id",
@@ -70,6 +70,11 @@ router.delete(
   deleteBook
 ); //  by admin
 
-router.put("/delbook/:id", bearer(users), userBooking(booking), updateBookUser); //  just by user // back to check userBooking !!
+router.put(
+  "/delbook/:id",
+  bearer(userModel),
+  userBooking(BookModel),
+  updateBookUser
+); //  just by user // back to check userBooking !!
 
 module.exports = router;

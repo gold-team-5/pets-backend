@@ -1,7 +1,7 @@
 "use strict";
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const users = require("../models/index"); // Required table from Data Base //  Users
+const userModel = require("../models/index");
 
 // Show Admins
 async function getAll(req, res) {
@@ -15,7 +15,7 @@ async function getAll(req, res) {
 
 // Show Users
 async function getAllUsers(req, res) {
-  let allData = await users.findall({});
+  let allData = await userModel.findall({});
 
   let userNames = allData.map((names) => {
     return names.userName; //  Check user name from schema
@@ -27,7 +27,7 @@ async function getAllUsers(req, res) {
 async function getSpecificUser(req, res) {
   const id = req.params.id; //  Check the id
 
-  let userData = await users.findOne({ where: { id } });
+  let userData = await userModel.findOne({ where: { id } });
 
   res.status(200).json(userData);
 }
@@ -35,7 +35,7 @@ async function getSpecificUser(req, res) {
 // Delete
 async function deleteUser(req, res) {
   const id = req.params.id; //  Check the id
-  await users.destroy({ where: { id } });
+  await userModel.destroy({ where: { id } });
 
   res.status(200).json(`id : ${id} --- Successfully Deleted`);
 }
