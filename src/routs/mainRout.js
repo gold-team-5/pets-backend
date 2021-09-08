@@ -75,7 +75,7 @@ router.put("/book/:id", bearer(userModel), updateBook); // just by user
 
 router.delete(
   "/appointment/:id",
-  bearer(admin),
+  bearer(userModel),
   permissionsAccess("delete"),
   deleteBook
 ); //  by admin
