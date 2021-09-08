@@ -1,15 +1,19 @@
 "use strict";
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const userModel = require("../models/index");
-const petModel = require("../models/index");
-const BookModel = require("../models/index");
+
+const {
+  userModel,
+  petModel,
+  BookModel,
+  productModel,
+} = require("../models/index");
 
 // get
 
 // Show all booking
 async function getAllBooking(req, res) {
-  let allData = await BookModel.findall({});
+  let allData = await BookModel.findAll({});
 
   res.status(200).json(allData);
 }
@@ -23,13 +27,12 @@ async function updateBook(req, res) {
 
   const bookDta = await BookModel.findOne({ where: { id } });
 
-  if (bookDta.status == true) {
-    let obj = bookDta;
-    obj.status = false;
+  if (bookDta.book_states == true) {
+    let obj = req.body;
 
-    await BookModel.update({ where: { id, obj } });
+    await bookDta.update(obj);
 
-    res.status(202).json(`Booking done 😀`);
+    res.status(202).json(`Booking done 😀 `);
   } else {
     res
       .status(400)
@@ -66,9 +69,25 @@ async function updateBookUser(req, res) {
   }
 }
 
+// add book
+async function addBook(req, res) {
+  try {
+    let BookRecord = await BookModel.create(req.body);
+
+    res.status(201).json(BookRecord);
+  } catch (e) {
+    console.log(e.message, "................................");
+    res.send(e.message);
+  }
+}
+
+//
+//
+
 module.exports = {
   getAllBooking,
   updateBook,
   deleteBook,
   updateBookUser,
+  addBook,
 };

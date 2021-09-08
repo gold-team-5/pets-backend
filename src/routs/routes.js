@@ -3,7 +3,12 @@
 const express = require("express");
 const authRoutes = express.Router();
 
-const { userModel } = require("../models/index");
+const {
+  userModel,
+  petModel,
+  BookModel,
+  productModel,
+} = require("../models/index");
 const basicAuth = require("../middleWare/basic");
 //const signupCheck = require("../middleware/signupCheck");
 const bearerAuth = require("../middleWare/bearer");
@@ -22,9 +27,9 @@ authRoutes.post("/signup", async (req, res) => {
 
 authRoutes.post("/signin", basicAuth(userModel), (req, res) => {
   const user = {
-    user: req.user,
-    token: req.user.token,
-    capabilities: req.user.capabilities,
+    user: req.resultData,
+    token: req.resultData.token,
+    capabilities: req.resultData.capabilities,
   };
   console.log(user);
   res.status(200).json(user);

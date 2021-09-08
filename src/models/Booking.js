@@ -1,31 +1,26 @@
-
 const BookModel = (sequelize, DataTypes) => {
-    const model = sequelize.define('book', {
-      book_name: {
-        type: DataTypes.STRING,
-        required: true,
-        unique: true
-      },
-     book_desc: {
-        type: DataTypes.STRING,
-     
-      },
-     user_id:{
-        type: DataTypes.INTEGER,
-      },
-   
-      book_date:{
-        type: DataTypes.DATE,
-      }
-     
-           
-            
-   
-    });
-  
-    
-  
-    return model;
-  }
-  
-  module.exports =BookModel;
+  const model = sequelize.define("book", {
+    book_doctor: {
+      type: DataTypes.STRING,
+      required: true,
+    },
+    book_states: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+    },
+
+    book_date: {
+      type: DataTypes.DATEONLY,
+    },
+    book_time: {
+      type: DataTypes.TIME,
+    },
+  });
+
+  return model;
+};
+
+module.exports = BookModel;

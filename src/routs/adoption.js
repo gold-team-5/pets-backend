@@ -1,28 +1,32 @@
 "use strict";
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const userModel = require("../models/index");
-const petModel = require("../models/index");
+const {
+  userModel,
+  petModel,
+  BookModel,
+  productModel,
+} = require("../models/index");
 
 // Show all pet
 async function getAllPet(req, res) {
-  let allData = await petModel.findall({});
+  let allData = await petModel.findAll({});
 
   res.status(200).json(allData);
 }
 
 // Show Specific pet
 async function getSpecificPet(req, res) {
-  const type = req.params.type; //  Check the type
+  const pet_type = req.params.pet_type;
 
-  let petData = await petModel.findall({ where: { type } });
+  let petData = await petModel.findAll({ where: { pet_type } });
 
   res.status(200).json(petData);
 }
 
 // Delete Specific pet
 async function deletePet(req, res) {
-  const id = req.params.id; //  Check the id
+  const id = req.params.id;
   await petModel.destroy({ where: { id } });
 
   res.status(200).json(`id : ${id} --- Successfully Deleted`);
@@ -30,17 +34,24 @@ async function deletePet(req, res) {
 
 // add pet
 async function addPet(req, res) {
-  petModel
-    .create(req.body)
-    .then((newPet) => res.status(201).send(newPet))
-    .catch((err) => res.status(400).send(err));
+  try {
+    let petRecord = await petModel.create(req.body);
+
+    res.status(201).json(petRecord);
+  } catch (e) {
+    console.log(e.message, "................................");
+    res.send(e.message);
+  }
 }
 
 // update Specific pet
 async function updatePet(req, res) {
-  const id = req.params.id; //  Check the id
+  const id = req.params.id;
   const obj = req.body;
-  await petModel.update({ where: { id, obj } });
+
+  let upObj = await petModel.findOne({ where: { id } });
+
+  await upObj.update(obj);
 
   res.status(202).json(`id : ${id} --- Successfully Update`);
 }

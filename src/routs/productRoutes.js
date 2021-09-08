@@ -1,7 +1,12 @@
 const express = require("express");
 const productsRouter = express.Router();
 
-const { userModel, productModel } = require("../models/index");
+const {
+  userModel,
+  petModel,
+  BookModel,
+  productModel,
+} = require("../models/index");
 const bearerAuth = require("../middleWare/bearer");
 const permissions = require("../middleWare/acl");
 
@@ -51,10 +56,11 @@ productsRouter.put(
   permissions("update"),
   async (req, res) => {
     const id = parseInt(req.params.id);
+
     let newProuductInfo = req.body;
     let Product = await productModel.findOne({ where: { id } });
     let updateProduct = await Product.update(newProuductInfo);
-    res.status(200).json(updateProduct);
+    res.status(202).json(updateProduct);
   }
 );
 //delete specific products from admin side
@@ -65,7 +71,7 @@ productsRouter.delete(
   async (req, res) => {
     const id = parseInt(req.params.id);
     let deletedProduct = await productModel.destroy({ where: { id } });
-    res.status(204).json(deletedProduct);
+    res.status(200).send(`--- Successfully  Deleted`);
   }
 );
 module.exports = productsRouter;

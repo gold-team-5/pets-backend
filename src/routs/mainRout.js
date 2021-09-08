@@ -9,9 +9,13 @@ const permissionsAccess = require("../middleWare/permissionsAccess");
 const userBooking = require("../middleWare/userBooking");
 
 const admin = require("../models/index"); // Required table from Data Base //  Admin
-const userModel = require("../models/index");
-const petModel = require("../models/index");
-const BookModel = require("../models/index");
+
+const {
+  userModel,
+  petModel,
+  BookModel,
+  productModel,
+} = require("../models/index");
 
 // import all function
 const { getAll, getAllUsers, getSpecificUser, deleteUser } = require("./admin");
@@ -27,6 +31,7 @@ const {
   updateBook,
   deleteBook,
   updateBookUser,
+  addBook,
 } = require("./appointment");
 
 ///// admin //////
@@ -43,19 +48,24 @@ router.delete(
 
 //// adoption //////
 
-router.get("/pet", getAllPet); // by user or admin
-router.get("/pet/:type", getSpecificPet); // by user or admin
+router.get("/pet", getAllPet);
+router.get("/pet/:pet_type", getSpecificPet); // by user or admin
 
 router.delete(
   "/pet/:id",
-  bearer(admin),
+  bearer(userModel),
   permissionsAccess("delete"),
   deletePet
-); // by  admin // chek delete
+); // by  admin
 
-router.put("/pet/:id", bearer(admin), permissionsAccess("update"), updatePet); // by  admin // chek update
+router.put(
+  "/pet/:id",
+  bearer(userModel),
+  permissionsAccess("update"),
+  updatePet
+); // by  admin // chek update
 
-router.post("/adapt", bearer(admin), permissionsAccess("add"), addPet); // by  admin // chek add
+router.post("/adapt", bearer(userModel), permissionsAccess("add"), addPet); // by  admin // chek add
 
 //// appointment //////
 
@@ -76,5 +86,12 @@ router.put(
   userBooking(BookModel),
   updateBookUser
 ); //  just by user // back to check userBooking !!
+
+router.post(
+  "/newAppointment",
+  bearer(userModel),
+  permissionsAccess("add"),
+  addBook
+); // by user or admin
 
 module.exports = router;
