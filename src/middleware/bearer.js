@@ -1,21 +1,21 @@
 'use strict';
 
-module.exports = (users) => (req, res, next) => {
-  if (!req.headers.authorization) {
-      console.error(`No authorization header found - jwt`);
-      next('Invalid login');
-      return;
+const { userModel} = require('../models')
+
+module.exports = async (req, res, next) => {
+
+  try {
+
+    if (!req.headers.authorization) { next('Invalid Login') }
+
+    const token = req.headers.authorization.split(' ').pop();
+    const validUser = await userModel.authenticateToken(token);
+    req.user = validUser;
+    req.token = validUser.token;
+    next();
+
+  } catch (e) {
+    next('Invalid Login');
   }
 
- 
-  let token = req.headers.authorization.split(' ').pop();
-console.log();
-  users.authenticateToken(token)
-  .then((user) => {
-      req.user = user;
-      next();
-  })
-  .catch((err) => next('Invalid login'))
-  
 }
-
