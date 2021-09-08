@@ -4,7 +4,7 @@
 
 | method      |                      link           |   Description            |
 | ----------- | ------------------------------------|--------------------------|
-|    post     |  signup/                            | sigin up for admin       |
+|    post     |  signup/                            | sigin up for user       |
 |   post      |   signin/                           |     sigin in for user    |
 
 
@@ -13,11 +13,11 @@
 
 | method      |                    link   |   Description                        |
 | ----------- | --------------------------|--------------------------------------|
-|    GET      |  products/                |    get all products from user,admin  |
-|    GET      |  products:id              |    get specific product user,admin   |
-|   post      | products/                 |    add products from admin           |
-|    delete   |      products/:id         |   delete products from admin         |
-|   put       |products/:id               |  update specific products            |
+|    GET      |  product/                |    get all products from user,admin  |
+|    GET      |  product:id              |    get specific product user,admin   |
+|   post      | product/                 |    add products from admin           |
+|    delete   |  product/:id             |   delete products from admin         |
+|   put       |product/:id               |  update specific products            |
 
 
 
