@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <title>Simple realtime examroom</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <style>
+        
+
+            
+        
+
+        .btn {
+            background-color: #0066CC;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .container{
+            width: 70%;
+            /* color: black; */
+            
+            margin-top: 5rem;
+            
+        }
+        .form-control{
+            border:1px solid #0066CC;
+
+        }
+        html, img, .any-image-element{
+            filter: invert(1);
+        }
+        .card{
+            height: 25rem;
+        }
+        
+        .message-box{
+            margin-top: 5px;
+            overflow:scroll;
+    overflow-x:hidden;
+        }
+    
+    </style>
+</head>
+<body">
+    <div class="container">
+        <div class="title">
+            <h3>Realtime Exam Room</h3>
+        </div>
+       
+        <div class="card">
+            <div>Teacher Name :<div class="card-header"> Anonymous </div></div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="username" placeholder="Change your username" >
+                    <div class="input-group-append">
+                        <button class="btn" type="button" id="usernameBtn">Change</button>
+                    </div>
+                </div>
+            </div>
+            <div class="message-box">
+                <ul class="list-group list-group-flush" id="message-list"></ul>
+                <div class="info"></div>
+            </div>
+            
+            <div class="card-footer">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="message" placeholder="Send new question" >
+                    <div class="input-group-append">
+                        <button class="btn" type="button" id="messageBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/chatroom.js"></script>
+</body>
+</html>
