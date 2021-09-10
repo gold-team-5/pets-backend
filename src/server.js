@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const http = require('http'); //package or module 
+const http1 = require('http'); //package or module 
 const server = http.createServer(app);
 const io = require('socket.io')(server);
 
