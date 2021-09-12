@@ -3,13 +3,14 @@
 <head>
     <title>Simple examroom</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="../../public/css/style.css"> -->
 
     <style>
         #video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, 300px);
             grid-auto-rows: 300px;
+
+            margin-left: 300px;
         }
 
         video {
@@ -34,13 +35,14 @@
             color: black;
             border:1px solid #0066CC;
             margin-top: 5rem;
-            height: 25rem;
+            min-height: 25rem;
         }
         .form-control{
             border:1px solid #0066CC;
 
         }
 
+     
     
     </style>
 
@@ -50,18 +52,17 @@
 <body>
     <div class="container">
         <div class="title">
-            <h3>Exam Room</h3>
+            <h3>User View</h3>
         </div>
 
         <div class="card">
-            <div>Student Name :<div class="card-header"> Student </div>
-            </div>
+            <div>User Name :<div class="card-header"> User </div></div>
             <!-- <div class="card-header"> Student Name :  </div> -->
             <div class="card-body">
                 <div class="input-group">
                     <input type="text" class="form-control" id="username" placeholder="Change your username">
                     <div class="input-group-append">
-                        <button class="btn" type="button" id="usernameBtn">Change</button>
+                        <button class="btn btn-warning" type="button" id="usernameBtn">Change</button>
                     </div>
                 </div>
             </div>
@@ -74,87 +75,31 @@
                 <div class="input-group">
                     <input type="text" class="form-control" id="message" placeholder="Send your answer">
                     <div class="input-group-append">
-                        <button class="btn" type="button" id="messageBtn">Send</button>
+                        <button class="btn btn-success" type="button" id="messageBtn">Send</button>
                     </div>
                 </div>
             </div>
         </div>
 
-
+        
         <dev>
             <div id="video-grid"></div>
-
-
+    
+            
         </dev>
 
     </div>
 
 
-
+    
     <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js" defer></script>
-
-    <script>
-        const socket = io('/')
-        const videoGrid = document.getElementById('video-grid')
-        const myPeer = new Peer(undefined, {
-            host: '/',
-            port: '3001'
-        })
-        const myVideo = document.createElement('video')
-        myVideo.muted = true
-        const peers = {}
-        navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
-        }).then(stream => {
-            addVideoStream(myVideo, stream)
-
-            myPeer.on('call', call => {
-                call.answer(stream)
-                const video = document.createElement('video')
-                call.on('stream', userVideoStream => {
-                    addVideoStream(video, userVideoStream)
-                })
-            })
-
-            socket.on('user-connected', userId => {
-                connectToNewUser(userId, stream)
-            })
-        })
-
-        socket.on('user-disconnected', userId => {
-            if (peers[userId]) peers[userId].close()
-        })
-
-        myPeer.on('open', id => {
-            socket.emit('join-room', ROOM_ID, id)
-        })
-
-        function connectToNewUser(userId, stream) {
-            const call = myPeer.call(userId, stream)
-            const video = document.createElement('video')
-            call.on('stream', userVideoStream => {
-                addVideoStream(video, userVideoStream)
-            })
-            call.on('close', () => {
-                video.remove()
-            })
-
-            peers[userId] = call
-        }
-
-        function addVideoStream(video, stream) {
-            video.srcObject = stream
-            video.addEventListener('loadedmetadata', () => {
-                video.play()
-            })
-            videoGrid.append(video)
-        }
-    </script>
+    <script src="/script.js" defer></script>
 
 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="../../public/script.js"></script>
+
     <script src="/js/studentRoom.js"></script>
 </body>
 

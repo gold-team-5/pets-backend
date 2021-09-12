@@ -1,23 +1,67 @@
 <!DOCTYPE html>
+
 <head>
-    <title>Simple realtime examroom</title>
+    <title>Simple examroom</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
+    <style>
+        #video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 300px);
+            grid-auto-rows: 300px;
 
+            margin-left: 300px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+            html, img, .any-image-element{
+            filter: invert(1);
+        }
+        
+
+        .btn {
+            background-color: #0066CC;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .container{
+            width: 70%;
+            color: black;
+            border:1px solid #0066CC;
+            margin-top: 5rem;
+            min-height: 25rem;
+        }
+        .form-control{
+            border:1px solid #0066CC;
+
+        }
 
     
+
+    
+    </style>
+
+
 </head>
+
 <body>
     <div class="container">
         <div class="title">
-            <h3>Realtime Exam Room</h3>
+            <h3>Admin View</h3>
         </div>
-       
+
         <div class="card">
-            <div>Teacher Name :<div class="card-header"> Anonymous </div></div>
+            <div>Admin Name :<div class="card-header"> Admin </div></div>
+            <!-- <div class="card-header"> Student Name :  </div> -->
             <div class="card-body">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="username" placeholder="Change your username" >
+                    <input type="text" class="form-control" id="username" placeholder="Change your username">
                     <div class="input-group-append">
                         <button class="btn btn-warning" type="button" id="usernameBtn">Change</button>
                     </div>
@@ -27,10 +71,10 @@
                 <ul class="list-group list-group-flush" id="message-list"></ul>
                 <div class="info"></div>
             </div>
-            
+
             <div class="card-footer">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="message" placeholder="Send new question" >
+                    <input type="text" class="form-control" id="message" placeholder="Send your answer">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button" id="messageBtn">Send</button>
                     </div>
@@ -38,6 +82,7 @@
             </div>
         </div>
 
+        
         <dev>
             <div id="video-grid"></div>
     
@@ -46,16 +91,17 @@
 
     </div>
 
+
+    
     <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js" defer></script>
     <script src="/script.js" defer></script>
 
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./script.js"></script>
+    <script src="../../public/script.js"></script>
 
-    
-
-    <script src="./js/chatroom.js"></script>
+    <script src="/js/chatroom.js"></script>
 </body>
+
 </html>
