@@ -12,26 +12,27 @@ app.use(router);
 
 app.use(authRoutes);
 
-// ++++++++++++++++++++++++++++++++++++ 
-// ++++++++++++++++++++++++++++++++++++ 
+//
+const handler404 = require("./errorHandlers/404");
+const handler500 = require("./errorHandlers/500");
+//
 
-var http = require('http').Server(app);
+// ++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++
 
-var socketio = require('socket.io')
+var http = require("http").Server(app);
 
+var socketio = require("socket.io");
 
 // var app = require('express')();
 // var io = require('socket.io');
 
+app.set("view engine", "ejs");
+app.use(express.static("public"));
 
-app.set('view engine', 'ejs')
-app.use(express.static('public'))
-
-app.get('/', (req, res) => {
-
-  res.sendFile(__dirname + '/public/index.html')
-
-})
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 /*
 app.get('/student', (req, res) => {
@@ -43,31 +44,37 @@ res.sendFile(__dirname + '/views/student.ejs')
 
 */
 
-app.get('/student', (req, res) => {
+app.get("/student", (req, res) => {
+  res.sendFile(__dirname + "/views/student.html");
+});
 
-  res.sendFile(__dirname + '/views/student.html')
+///////////////////////////////////
 
+// 404 , 500
+app.get("/bad", (req, res, next) => {
+  next("error from (bad) end point");
+});
 
-})
+app.use(handler500);
+
+app.use("*", handler404);
+
+//////////////////////////////////
 
 // const server = app.listen(process.env.PORT || 4212, () => {
 //   console.log("server is running")
 // })
 
-// ++++++++++++++++++++++++++++++++++++ 
-// ++++++++++++++++++++++++++++++++++++ 
+// ++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++
 
-require('dotenv').config();
-
-
-
-
+require("dotenv").config();
 
 // const server = require('http').Server(app)
 
-const { v4: uuidV4 } = require('uuid')
+const { v4: uuidV4 } = require("uuid");
 
-let port = 3000
+let port = 3000;
 
 // server.start(3000);
 const { db } = require("./models/index");
@@ -75,44 +82,52 @@ const { db } = require("./models/index");
 db.sync()
 
   .then(() => {
-    const server = app.listen(port, () => console.log(`Server is up on port ${port} 👍`));
+    const server = app.listen(port, () =>
+      console.log(`Server is up on port ${port} 👍`)
+    );
 
-    const io = socketio(server)
+    const io = socketio(server);
 
-    io.on('connection', socket => {
-      console.log("New user connected")
+    io.on("connection", (socket) => {
+      console.log("New user connected");
 
-      socket.username = "Anonymous"
+      socket.username = "Anonymous";
 
-      socket.on('join-room', (ROOM_ID, id) => {
-        socket.join(ROOM_ID)
-        socket.to(ROOM_ID).broadcast.emit('user-connected', id)
+      socket.on("join-room", (ROOM_ID, id) => {
+        socket.join(ROOM_ID);
+        socket.to(ROOM_ID).broadcast.emit("user-connected", id);
 
-        socket.on('disconnect', () => {
-          socket.to(ROOM_ID).broadcast.emit('user-disconnected', id)
-        })
-      })
+        socket.on("disconnect", () => {
+          socket.to(ROOM_ID).broadcast.emit("user-disconnected", id);
+        });
+      });
 
-      socket.on('change_username', data => {
-        socket.username = data.username
-      })
-
+      socket.on("change_username", (data) => {
+        socket.username = data.username;
+      });
 
       //handle the new message event
-      socket.on('new_message', data => {
-        console.log("new message")
-        io.sockets.emit('receive_message', { message: data.message, username: socket.username, type: data.type })
-      })
+      socket.on("new_message", (data) => {
+        console.log("new message");
+        io.sockets.emit("receive_message", {
+          message: data.message,
+          username: socket.username,
+          type: data.type,
+        });
+      });
 
-
-      socket.on('typing', data => {
-        socket.broadcast.emit('typing', { username: socket.username, text: data.text })
-      })
-
-    })
-
-
+      socket.on("typing", (data) => {
+        socket.broadcast.emit("typing", {
+          username: socket.username,
+          text: data.text,
+        });
+      });
+    });
   })
   .catch(console.error);
 
 // server.start(5002);
+
+module.exports = {
+  app: app,
+};
