@@ -12,7 +12,8 @@ app.use(router);
 
 app.use(authRoutes);
 
-//
+// error
+
 const handler404 = require("./errorHandlers/404");
 const handler500 = require("./errorHandlers/500");
 //
@@ -128,6 +129,7 @@ db.sync()
 
 // server.start(5002);
 
+//
 module.exports = {
   app: app,
 };
