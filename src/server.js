@@ -103,6 +103,9 @@ app.get('/userChatPage', (req, res) => {
       })
     })
 
+
+
+    
     socket.on('change_username', data => {
       socket.username = data.username
     })
