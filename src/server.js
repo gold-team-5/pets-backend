@@ -43,9 +43,16 @@ res.sendFile(__dirname + '/views/student.ejs')
 
 */
 
-app.get('/student', (req, res) => {
+app.get('/adminChatPage', (req, res) => {
+  // res.redirect(`/${uuidV4()}`)
+  res.sendFile(__dirname + '/views/admin.html')
 
-  res.sendFile(__dirname + '/views/student.html')
+
+})
+
+app.get('/userChatPage', (req, res) => {
+  // res.redirect(`/${uuidV4()}`)
+  res.sendFile(__dirname + '/views/user.html')
 
 
 })
@@ -68,48 +75,49 @@ require('dotenv').config();
 const { v4: uuidV4 } = require('uuid')
 
 let port = 3000
-
+const server = app.listen(port, () => console.log(`Server is up on port ${port} 👍`));
 // server.start(3000);
 const { db } = require("./models/index");
+const io = socketio(server)
+
+io.on('connection', socket => {
+  console.log("New user connected")
+
+  socket.username = "Anonymous"
+
+  socket.on('join-room', (ROOM_ID, id) => {
+    socket.join(ROOM_ID)
+    socket.to(ROOM_ID).broadcast.emit('user-connected', id)
+
+    socket.on('disconnect', () => {
+      socket.to(ROOM_ID).broadcast.emit('user-disconnected', id)
+    })
+  })
+
+  socket.on('change_username', data => {
+    socket.username = data.username
+  })
+
+
+  //handle the new message event
+  socket.on('new_message', data => {
+    console.log("new message")
+    io.sockets.emit('receive_message', { message: data.message, username: socket.username, type: data.type })
+  })
+
+
+  socket.on('typing', data => {
+    socket.broadcast.emit('typing', { username: socket.username, text: data.text })
+  })
+
+})
 //the port should be from the .evn file
 db.sync()
 
   .then(() => {
-    const server = app.listen(port, () => console.log(`Server is up on port ${port} 👍`));
-
-    const io = socketio(server)
-
-    io.on('connection', socket => {
-      console.log("New user connected")
-
-      socket.username = "Anonymous"
-
-      socket.on('join-room', (ROOM_ID, id) => {
-        socket.join(ROOM_ID)
-        socket.to(ROOM_ID).broadcast.emit('user-connected', id)
-
-        socket.on('disconnect', () => {
-          socket.to(ROOM_ID).broadcast.emit('user-disconnected', id)
-        })
-      })
-
-      socket.on('change_username', data => {
-        socket.username = data.username
-      })
 
 
-      //handle the new message event
-      socket.on('new_message', data => {
-        console.log("new message")
-        io.sockets.emit('receive_message', { message: data.message, username: socket.username, type: data.type })
-      })
-
-
-      socket.on('typing', data => {
-        socket.broadcast.emit('typing', { username: socket.username, text: data.text })
-      })
-
-    })
+    console.log("DataBase Connected");
 
 
   })
