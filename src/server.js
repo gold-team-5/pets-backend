@@ -45,87 +45,98 @@ res.sendFile(__dirname + '/views/student.ejs')
 
 */
 
-app.get("/student", (req, res) => {
-  res.sendFile(__dirname + "/views/student.html");
-});
 
-///////////////////////////////////
+app.get('/adminChatPage', (req, res) => {
+  // res.redirect(`/${uuidV4()}`)
+  res.sendFile(__dirname + '/views/admin.html')
 
-// 404 , 500
-app.get("/bad", (req, res, next) => {
-  next("error from (bad) end point");
-});
 
-app.use(handler500);
+})
 
-app.use("*", handler404);
+app.get('/userChatPage', (req, res) => {
+  // res.redirect(`/${uuidV4()}`)
+  res.sendFile(__dirname + '/views/user.html')
+})
 
-//////////////////////////////////
+  // 404 , 500
+  app.get("/bad", (req, res, next) => {
+    next("error from (bad) end point");
+  });
 
-// const server = app.listen(process.env.PORT || 4212, () => {
-//   console.log("server is running")
-// })
+  app.use(handler500);
 
-// ++++++++++++++++++++++++++++++++++++
-// ++++++++++++++++++++++++++++++++++++
+  app.use("*", handler404);
 
-require("dotenv").config();
+  //////////////////////////////////
 
-// const server = require('http').Server(app)
+  // const server = app.listen(process.env.PORT || 4212, () => {
+  //   console.log("server is running")
+  // })
 
-const { v4: uuidV4 } = require("uuid");
+  // ++++++++++++++++++++++++++++++++++++
+  // ++++++++++++++++++++++++++++++++++++
 
-let port = 3000;
+  require("dotenv").config();
 
-// server.start(3000);
-const { db } = require("./models/index");
-//the port should be from the .evn file
-db.sync()
+  // const server = require('http').Server(app)
 
-  .then(() => {
-    const server = app.listen(port, () =>
-      console.log(`Server is up on port ${port} 👍`)
-    );
+  const { v4: uuidV4 } = require("uuid");
 
-    const io = socketio(server);
+  let port = 3000
+  const server = app.listen(port, () => console.log(`Server is up on port ${port} 👍`));
 
-    io.on("connection", (socket) => {
-      console.log("New user connected");
+  // server.start(3000);
+  const { db } = require("./models/index");
+  const io = socketio(server)
 
-      socket.username = "Anonymous";
 
-      socket.on("join-room", (ROOM_ID, id) => {
-        socket.join(ROOM_ID);
-        socket.to(ROOM_ID).broadcast.emit("user-connected", id);
+  io.on('connection', socket => {
+    console.log("New user connected")
 
-        socket.on("disconnect", () => {
-          socket.to(ROOM_ID).broadcast.emit("user-disconnected", id);
-        });
-      });
+    socket.username = "Anonymous"
 
-      socket.on("change_username", (data) => {
-        socket.username = data.username;
-      });
+    socket.on('join-room', (ROOM_ID, id) => {
+      socket.join(ROOM_ID)
+      socket.to(ROOM_ID).broadcast.emit('user-connected', id)
 
-      //handle the new message event
-      socket.on("new_message", (data) => {
-        console.log("new message");
-        io.sockets.emit("receive_message", {
-          message: data.message,
-          username: socket.username,
-          type: data.type,
-        });
-      });
+      socket.on('disconnect', () => {
+        socket.to(ROOM_ID).broadcast.emit('user-disconnected', id)
+      })
+    })
 
-      socket.on("typing", (data) => {
-        socket.broadcast.emit("typing", {
-          username: socket.username,
-          text: data.text,
-        });
-      });
+    socket.on('change_username', data => {
+      socket.username = data.username
+    })
+
+
+    //handle the new message event
+    socket.on('new_message', data => {
+      console.log("new message")
+      io.sockets.emit('receive_message', { message: data.message, username: socket.username, type: data.type })
+    })
+
+
+    socket.on("change_username", (data) => {
+      socket.username = data.username;
     });
+
+
+    socket.on('typing', data => {
+      socket.broadcast.emit('typing', { username: socket.username, text: data.text })
+    })
+
   })
-  .catch(console.error);
+  //the port should be from the .evn file
+  db.sync()
+
+    .then(() => {
+
+
+      console.log("DataBase Connected");
+
+
+
+    }).catch(console.error);
 
 // server.start(5002);
 

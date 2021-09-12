@@ -24,13 +24,12 @@
     })
 
     socket.on('receive_message', data => {
-        if (data.type == 'teacher') {
-            console.log(data)
-            let listItem = document.createElement('li')
-            listItem.textContent = data.username + ': ' + data.message
-            listItem.classList.add('list-group-item')
-            messageList.appendChild(listItem)
-        }
+
+        console.log(data)
+        let listItem = document.createElement('li')
+        listItem.textContent = data.username + ': ' + data.message
+        listItem.classList.add('list-group-item')
+        messageList.appendChild(listItem)
 
     })
 
@@ -44,7 +43,7 @@
     })
 
     // socket.on('typing', data => {
-        
+
     //     info.textContent = data.username + " is typing..." + data.text
     //     setTimeout(() => { info.textContent = '' }, 5000)
     // })
