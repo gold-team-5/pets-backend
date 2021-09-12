@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="../../public/css/style.css"> -->
 
-    <style>
+    <!-- <style>
         #video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, 300px);
@@ -43,7 +43,7 @@
 
     
     </style>
-
+ -->
 
 </head>
 
@@ -82,7 +82,9 @@
 
 
         <dev>
-            <div id="video-grid"></div>
+            <div id="video-grid">
+                
+            </div>
 
 
         </dev>
@@ -98,8 +100,8 @@
         const socket = io('/')
         const videoGrid = document.getElementById('video-grid')
         const myPeer = new Peer(undefined, {
-            host: '/',
-            port: '3001'
+            host: '/student',
+            port: '3000'
         })
         const myVideo = document.createElement('video')
         myVideo.muted = true
@@ -109,40 +111,40 @@
             audio: true
         }).then(stream => {
             addVideoStream(myVideo, stream)
-
-            myPeer.on('call', call => {
-                call.answer(stream)
-                const video = document.createElement('video')
-                call.on('stream', userVideoStream => {
-                    addVideoStream(video, userVideoStream)
-                })
-            })
-
-            socket.on('user-connected', userId => {
-                connectToNewUser(userId, stream)
-            })
         })
+            // myPeer.on('call', call => {
+            //     call.answer(stream)
+            //     const video = document.createElement('video')
+            //     call.on('stream', userVideoStream => {
+            //         addVideoStream(video, userVideoStream)
+            //     })
+            // })
 
-        socket.on('user-disconnected', userId => {
-            if (peers[userId]) peers[userId].close()
-        })
+        //     socket.on('user-connected', userId => {
+        //         connectToNewUser(userId, stream)
+        //     })
+        // })
 
-        myPeer.on('open', id => {
-            socket.emit('join-room', ROOM_ID, id)
-        })
+        // socket.on('user-disconnected', userId => {
+        //     if (peers[userId]) peers[userId].close()
+        // })
 
-        function connectToNewUser(userId, stream) {
-            const call = myPeer.call(userId, stream)
-            const video = document.createElement('video')
-            call.on('stream', userVideoStream => {
-                addVideoStream(video, userVideoStream)
-            })
-            call.on('close', () => {
-                video.remove()
-            })
+        // myPeer.on('open', id => {
+        //     socket.emit('join-room', ROOM_ID, id)
+        // })
 
-            peers[userId] = call
-        }
+        // function connectToNewUser(userId, stream) {
+        //     const call = myPeer.call(userId, stream)
+        //     const video = document.createElement('video')
+        //     call.on('stream', userVideoStream => {
+        //         addVideoStream(video, userVideoStream)
+        //     })
+        //     call.on('close', () => {
+        //         video.remove()
+        //     })
+
+        //     peers[userId] = call
+        // }
 
         function addVideoStream(video, stream) {
             video.srcObject = stream

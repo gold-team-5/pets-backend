@@ -3,23 +3,12 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const http1 = require('http'); //package or module 
-const server = http.createServer(app);
-const io = require('socket.io')(server);
+const authRoutes = require("./routs/routes");
+const productRoute = require("./routs/productRoutes");
+app.use(productRoute);
 
-
-
-
-
-//=================================================
-
-const path = require('path'); //node js core module to read    public file?
-
-
-
-
-
-
+const router = require("./routs/mainRout");
+app.use(router);
 
 app.use(authRoutes);
 
@@ -44,22 +33,20 @@ app.get('/', (req, res) => {
 
 })
 
-/*
+ 
+//check if we need that
 app.get('/student', (req, res) => {
-
-res.sendFile(__dirname + '/views/student.ejs')
-
+res.sendFile(__dirname + '/views/student.html')
   
 })
 
-*/
 
-app.get('/student', (req, res) => {
+// app.get('/student', (req, res) => {
 
-  res.sendFile(__dirname + '/views/student.html')
+//   res.sendFile(__dirname + '/views/student.html')
 
 
-})
+// })
 
 // const server = app.listen(process.env.PORT || 4212, () => {
 //   console.log("server is running")
@@ -127,3 +114,6 @@ db.sync()
   .catch(console.error);
 
 // server.start(5002);
+module.exports={
+  app:app
+}

@@ -1,50 +1,42 @@
-'use strict'
 
+// 'use strict';
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { Sequelize, DataTypes } = require('sequelize');
-const UsersSchema = require('../src/models/user');
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const { Sequelize, DataTypes } = require('sequelize');
+// const petsSchema = require('../src/models/pet');
 
-const sequelize = new Sequelize('postgres://postgres@localhost:5432/testdb');
+// const sequelize = new Sequelize('postgres://postgres@localhost:5432/testing');
 
-const Users = UsersSchema(sequelize, DataTypes);
+// const pets = petsSchema(sequelize, DataTypes);
 
-beforeAll(async () => {
-    await sequelize.sync();
-});
+// beforeAll(async () => {
+//     await sequelize.sync();
+// });
 
-afterAll(async () => {
-    await sequelize.drop();
-});
+// afterAll( () => {
+//      sequelize.drop();
+// });
 
-describe("bearer auth",()=>{
-    let userInfo = {
-        username: 'eman',
-        password: '12345'
-    }
-    it('create user with hash password',async ()=>{
- 
-  let user = await Users.create(userInfo);
-        
-  let isValid = await bcrypt.compare(userInfo.password, user.password);
+// describe('pets models', () => {
+//     let userInfo = {
+//         pet_name: 'cat',
+//         pet_type: 'catt',
+//         pet_age:'12',
+//         user_id:'5'
+//     }
 
-  expect(user.id).toBeTruthy();
-  
-  expect(isValid).toBeTruthy();
-
-    })
-
-    it('should attach a teken on find', async () => {
+//     it('add new pets', async () => {
        
-      
-        let user = await Users.findOne({ username: userInfo.username});
-        let decodedJwt = jwt.decode(user.token);
+//         let add = await pets.create(userInfo);
+//         expect(201).toBe(201);
+        
+        
+//     });
+//     // it('find all pets',async()=>{
 
-      
-        expect(user.username).toEqual(userInfo.username);
-        expect(user.token).toBeTruthy();
-        expect(decodedJwt.username).toEqual(userInfo.username);
-    });
+//     //   let findpet=awai
+//     // })
 
-})
+    
+// });
