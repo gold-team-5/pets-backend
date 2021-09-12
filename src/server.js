@@ -81,8 +81,8 @@ app.get('/userChatPage', (req, res) => {
 
   const { v4: uuidV4 } = require("uuid");
 
-  let port = 3000
-  const server = app.listen(port, () => console.log(`Server is up on port ${port} 👍`));
+  let port = process.env.PORT
+  const server = app.listen(port||3000, () => console.log(`Server is up on port ${port} 👍`));
 
   // server.start(3000);
   const { db } = require("./models/index");
