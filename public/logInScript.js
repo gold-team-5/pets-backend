@@ -1,6 +1,6 @@
 'use strict'
 
-
+localStorage.clear();
 
 const logIn = document.getElementById('logInForm')
 
@@ -61,7 +61,11 @@ async function signInFunction(userName, userPassword) {
         })
         .then((jsonData) => {
             console.log(jsonData);
-            
+            let storageData = JSON.stringify(jsonData)
+
+            localStorage.setItem('userData', storageData)
+            location.replace("http://localhost:3000/userChatPage")
+
         })
         .catch((err) => {
             console.log('ERROR:', err.message);

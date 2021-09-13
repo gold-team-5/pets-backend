@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
 
   socket.username = "Anonymous";
 
-//video function
+  //video function
 
   socket.on("join-room", (ROOM_ID, id) => {
     socket.join(ROOM_ID);
@@ -91,17 +91,23 @@ io.on("connection", (socket) => {
       socket.to(ROOM_ID).broadcast.emit("user-disconnected", id);
     });
   });
-//change user name function
+  //change user name function
 
   socket.on("change_username", (data) => {
     socket.username = data.username;
   });
 
+
   //handle the new message event
-  socket.on("new_message", (data) => {
+  socket.on('new_message', data => {
+    // console.log("new message")
+    // io.sockets.emit('receive_message', { message: data.message, username: socket.username, id: data.id })
+
+
     let id = uuid()
 
-//add massge to queue 
+
+    //add massge to queue 
 
     console.log("new message", data.message);
     io.sockets.emit("receive_message", {
@@ -117,11 +123,16 @@ io.on("connection", (socket) => {
 
     console.log('queue massage after save', queueMassage.massage)
   });
-//get all massage from queue
+  //get all massage from queue
 
-  socket.on('getAll', () => {
+  socket.on('getAll', (myID) => {  //  my
     Object.keys(queueMassage.massage).forEach(id => {
-      socket.emit('newmssg', { id, massage: queueMassage.massage[id] });
+      console.log(queueMassage.massage[id].id)  //  reciver
+
+      if(queueMassage.massage[id].id == myID){
+        socket.emit('newmssg', { id, massage: queueMassage.massage[id] });
+      }
+      
     })
   });
   //delete massage from queue  after user recevied 
