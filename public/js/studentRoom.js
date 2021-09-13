@@ -36,6 +36,10 @@
 
     //  local storage
     const userStorageData = localStorage.getItem('userData');
+    if(userStorageData == null){
+        location.replace("https://gold-team-mid-project.herokuapp.com")
+
+    }
     const userStorageDataFromJSON = JSON.parse(userStorageData)
     console.log(userStorageDataFromJSON.user)
     username.value = userStorageDataFromJSON.user.user_name
