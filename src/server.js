@@ -111,7 +111,7 @@ app.get('/userChatPage', (req, res) => {
     //handle the new message event
     socket.on('new_message', data => {
       console.log("new message")
-      io.sockets.emit('receive_message', { message: data.message, username: socket.username, type: data.type })
+      io.sockets.emit('receive_message', { message: data.message, username: socket.username, id: data.id })
     })
 
 
