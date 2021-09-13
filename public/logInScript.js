@@ -64,7 +64,7 @@ async function signInFunction(userName, userPassword) {
             let storageData = JSON.stringify(jsonData)
 
             localStorage.setItem('userData', storageData)
-            location.replace("http://localhost:3000/userChatPage")
+            location.replace("https://gold-team-mid-project.herokuapp.com/userChatPage")
 
         })
         .catch((err) => {
