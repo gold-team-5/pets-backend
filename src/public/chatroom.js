@@ -1,19 +1,6 @@
+  
 (function connect() {
     let socket = io.connect()
-      socket.emit('getAll');
-    socket.on('newmssg', payload => {
-        
-
-        let listItem = document.createElement('li')
-        listItem.textContent =  payload.massage.username+' : '+payload.massage.message 
-        listItem.classList.add('list-group-item')
-        messageList.appendChild(listItem)
-    
-        console.log(payload.massage.message);
-        socket.emit('received', payload.id);
-        
-    });
-    
 
     let username = document.querySelector('#username')
     let usernameBtn = document.querySelector('#usernameBtn')
@@ -25,7 +12,7 @@
         curUsername.textContent = username.value
         username.value = ''
     })
-  
+
 
     let message = document.querySelector('#message')
     let messageBtn = document.querySelector('#messageBtn')
