@@ -8,7 +8,6 @@ const acl = require("../src/middleWare/acl");
 const basic = require("../src/middleWare/basic");
 const bearer = require("../src/middleWare/bearer");
 const permissionsAccess = require("../src/middleWare/permissionsAccess");
-const signupCheck = require("../src/middleWare/signupCheck");
 const userBooking = require("../src/middleWare/userBooking");
 
 describe("acl MiddleWare", () => {
