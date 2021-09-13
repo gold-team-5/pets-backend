@@ -1,6 +1,5 @@
 "use strict";
 
-
 const {
   userModel,
   petModel,
@@ -13,14 +12,14 @@ async function getAll(req, res) {
   let allData = await userModel.findAll({});
 
   let userModelNames = allData.map((names) => {
-    return names.userName; //  Check user name from schema
+    return names.user_name; //  Check user name from schema
   });
   res.status(200).json(userModelNames);
 }
 
 // Show Users
 async function getAllAdmins(req, res) {
-  let allData = await userModel.findAll({where:{user_role:'admin'}});
+  let allData = await userModel.findAll({ where: { user_role: "admin" } });
 
   let userNames = allData.map((names) => {
     return names.user_name; //  Check user name from schema

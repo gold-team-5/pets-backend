@@ -18,7 +18,12 @@ const {
 } = require("../models/index");
 
 // import all function
-const { getAll, getAllAdmins, getSpecificUser, deleteUser } = require("./admin");
+const {
+  getAll,
+  getAllAdmins,
+  getSpecificUser,
+  deleteUser,
+} = require("./admin");
 const {
   getAllPet,
   getSpecificPet,
@@ -36,11 +41,15 @@ const {
 
 ///// admin //////
 
-router.get("/admin", getAll); //  Show all admins
-router.get("/users", bearer(userModel), getAllAdmins);
-router.get("/users/:id", bearer(userModel), getSpecificUser);
+//
+router.get("/alluser", getAll); // get all user + admin
+router.get("/admins", bearer(userModel), getAllAdmins); // get all  admin
+//
+// router.get("/admin", getAll);
+// router.get("/users", bearer(userModel), getAllAdmins);
+router.get("/alluser/:id", bearer(userModel), getSpecificUser);
 router.delete(
-  "/users/:id",
+  "/alluser/:id",
   bearer(userModel),
   permissionsAccess("delete"),
   deleteUser
