@@ -28,7 +28,7 @@ async function logInFunction(event) {
 
 
 async function getData() {
-    let a = await axios.get('http://localhost:3000/pet')
+    let a = await axios.get('https://gold-team-mid-project.herokuapp.com/pet')
     console.log(a)
 }
 
@@ -36,7 +36,7 @@ async function signInFunction(userName, userPassword) {
 
 
     // Send a GET request with the authorization header set to
-    let uri = "http://localhost:3000/signin";
+    let uri = "https://gold-team-mid-project.herokuapp.com/signin";
 
     let h = new Headers();
     h.append(userName, userPassword);
