@@ -1,18 +1,23 @@
 (function connect() {
     let socket = io.connect()
+    socket.emit('getAll');
+    socket.on('newmssg', payload => {
+        
+
+        let listItem = document.createElement('li')
+        listItem.textContent =  payload.massage.username+' : '+payload.massage.message 
+        listItem.classList.add('list-group-item')
+        messageList.appendChild(listItem)
+    
+        console.log(payload.massage.message);
+        socket.emit('received', payload.id);
+    });
+
 
     let username = document.querySelector('#username')
     let usernameBtn = document.querySelector('#usernameBtn')
     let curUsername = document.querySelector('.card-header')
-    function getRandomInt(max) {
-        let a=Math.floor(Math.random() * max);
-       return a
-     }
-    let queueMassage={
-        massage:{
-
-        }
-    }
+  
    
     usernameBtn.addEventListener('click', e => {
         console.log(username.value)
@@ -30,18 +35,11 @@
         console.log('iiiiiiiiiiiii',message.value)
         socket.emit('new_message', { message: message.value, type: 'student' })
         
-        let id = getRandomInt(10000)
-        queueMassage.massage[id]=message.value;
-        console.log('queue massage after save', queueMassage.massage)
+     
         message.value = ''
         
     })
-   
-    socket.on('getAll', () => {
-        Object.keys(queueMassage.massage).forEach(id => {
-            socket.emit('newmssg', { id, massage: queueMassage.massage[id]  });
-        })
-    });
+
 
     socket.on('receive_message', data => {
  

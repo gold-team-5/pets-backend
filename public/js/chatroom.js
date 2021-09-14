@@ -2,9 +2,18 @@
     let socket = io.connect()
       socket.emit('getAll');
     socket.on('newmssg', payload => {
-        console.log(`${payload.message} is done!`);
-        // socket.emit('received', payload.id);
+        
+
+        let listItem = document.createElement('li')
+        listItem.textContent =  payload.massage.username+' : '+payload.massage.message 
+        listItem.classList.add('list-group-item')
+        messageList.appendChild(listItem)
+    
+        console.log(payload.massage.message);
+        socket.emit('received', payload.id);
+        
     });
+    
 
     let username = document.querySelector('#username')
     let usernameBtn = document.querySelector('#usernameBtn')
