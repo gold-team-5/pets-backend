@@ -27,6 +27,7 @@ authRoutes.post("/signup", async (req, res) => {
 
 authRoutes.post("/signin", basicAuth(userModel), (req, res) => {
   const user = {
+    id:req.resultData.id,
     user: req.resultData,
     token: req.resultData.token,
     capabilities: req.resultData.capabilities,

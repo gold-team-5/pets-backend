@@ -1,5 +1,10 @@
 (function connect() {
     let socket = io.connect()
+      socket.emit('getAll');
+    socket.on('newmssg', payload => {
+        console.log(`${payload.message} is done!`);
+        // socket.emit('received', payload.id);
+    });
 
     let username = document.querySelector('#username')
     let usernameBtn = document.querySelector('#usernameBtn')
@@ -11,7 +16,7 @@
         curUsername.textContent = username.value
         username.value = ''
     })
-
+  
 
     let message = document.querySelector('#message')
     let messageBtn = document.querySelector('#messageBtn')
