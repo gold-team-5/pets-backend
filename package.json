@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js",
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gold-team-5/pets-backend.git"
+    "url": "jest --coverage --verbose"
   },
   "keywords": [],
   "author": "",
@@ -24,13 +24,17 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "dots-config": "^2.1.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "jest": "^27.1.0",
+    "http": "0.0.1-security",
+    "jest": "^27.1.1",
     "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
     "pg": "^8.7.1",
-    "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
-    "socketio": "^1.0.0",
-    "supertest": "^6.1.6"
+    "socket.io": "^4.2.0",
+    "socket.io-client": "^4.2.0",
+    "supertest": "^6.1.6",
+    "uuid": "^8.3.2"
   }
 }

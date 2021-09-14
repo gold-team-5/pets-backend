@@ -57,14 +57,84 @@
 
  ![ERdiagram](ERdiagram.png)
 
-Relational Schema
+
+
 
  ![RelationalSchema](RelationalSchema.png)
-
-context Diagram
-
-![contextDigram](contextDigram.png)
 
 # env file
 
 DATABASE_URL=postgres://ozcckfki:fnVB2nqDZFNYG4AizPI1_QSxZ8Yv0Z7Y@chunee.db.elephantsql.com/ozcckfki
+
+## Software Requirements
+
+## Vision
+
+Problem Domain
+The main idea for our website is to adopt pets
+provide services including medical services, and purchase all pet supplies
+
+and the user can book an apointment to treate his bets and the server will  
+checks if the appointment is booked or available
+
+The user was able to talk with the admin to agree on the adoption procedures
+
+### What pain point does this project solve?
+
+- Shorten the time to find a pet for adoption
+
+- Find a place that provides all the services the user needs to take care of his pet
+
+- The possibility of seeing the pet and previewing it through the camera available to the user upon adoption
+
+- Providing medical services for pets
+
+### Why should we care about your product?
+
+Providing everything the user needs in the field of pets in a reliable place and in the least time and effort
+
+### Scope (In/Out)
+
+### IN - What will your product do
+
+- The web app will provide information to the users about all the bets avalible for adobtion
+
+- The web app will provide medical services for pets
+
+- Users will be able to seeing the pet and previewing it through the camera available to the user upon adoption
+
+- provide services including medical services, and purchase all pet supplies
+
+### OUT - What will your product not do
+
+- My website will never turn into an IOS or Android app
+- The quality of animals is limited because the store is unable to import from abroad, as it is a local project
+
+### What are your stretch goals?
+
+Dealing with animal rights organizations and expanding the adoption system in our store
+
+### capabilities
+
+```
+    admin: ["update", "delete", "add", "show"],
+    user: ["show"],
+    doctor: ["show"],
+
+```
+
+### Data Flow
+
+ ER diagram
+
+ ![diagram](image1.png)
+
+ context Diagram
+
+![contextDigram](contextDigram.png)
+
+### Non-Functional Requirements
+
+1. Security:basic ,barer, auth
+2. Usability:express,midlleware (404,500)
+3. Testability:jest supertest

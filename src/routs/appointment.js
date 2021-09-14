@@ -57,13 +57,15 @@ async function updateBookUser(req, res) {
 
   const bookDta = await BookModel.findOne({ where: { id } });
 
-  if (bookDta.status == false) {
-    let obj = bookDta;
-    obj.status = true;
+  if (bookDta.book_states == false) {
+    let obj = {
+      book_states: true,
+      user_id: null,
+    };
 
-    await BookModel.update({ where: { id, obj } });
+    await bookDta.update(obj);
 
-    res.status(202).json(`Booking done 😀`);
+    res.status(202).json(`Booking Cancelled ❌`);
   } else {
     res.status(400).send(" You didn't pick this appointment yet ‼️ ");
   }

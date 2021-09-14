@@ -1,6 +1,5 @@
 "use strict";
 
-const admin = require("../models/index"); // Required table from Data Base //  Admin
 const {
   userModel,
   petModel,
@@ -10,17 +9,17 @@ const {
 
 // Show Admins
 async function getAll(req, res) {
-  let allData = await admin.findAll({});
+  let allData = await userModel.findAll({});
 
-  let adminNames = allData.map((names) => {
-    return names.userName; //  Check user name from schema
+  let userModelNames = allData.map((names) => {
+    return names.user_name; //  Check user name from schema
   });
-  res.status(200).json(adminNames);
+  res.status(200).json(userModelNames);
 }
 
 // Show Users
-async function getAllUsers(req, res) {
-  let allData = await userModel.findAll({});
+async function getAllAdmins(req, res) {
+  let allData = await userModel.findAll({ where: { user_role: "admin" } });
 
   let userNames = allData.map((names) => {
     return names.user_name; //  Check user name from schema
@@ -47,7 +46,7 @@ async function deleteUser(req, res) {
 
 module.exports = {
   getAll,
-  getAllUsers,
+  getAllAdmins,
   getSpecificUser,
   deleteUser,
 };

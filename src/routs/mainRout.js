@@ -18,13 +18,20 @@ const {
 } = require("../models/index");
 
 // import all function
-const { getAll, getAllUsers, getSpecificUser, deleteUser } = require("./admin");
+const {
+  getAll,
+  getAllAdmins,
+  getSpecificUser,
+  deleteUser,
+} = require("./admin");
 const {
   getAllPet,
   getSpecificPet,
   deletePet,
   addPet,
   updatePet,
+  takePet,
+  takePetUser,
 } = require("./adoption");
 const {
   getAllBooking,
@@ -36,11 +43,15 @@ const {
 
 ///// admin //////
 
-router.get("/admin", getAll); //  Show all admins
-router.get("/users", bearer(userModel), getAllUsers);
-router.get("/users/:id", bearer(userModel), getSpecificUser);
+//
+router.get("/alluser", getAll); // get all user + admin
+router.get("/admins", bearer(userModel), getAllAdmins); // get all  admin
+//
+// router.get("/admin", getAll);
+// router.get("/users", bearer(userModel), getAllAdmins);
+router.get("/alluser/:id", bearer(userModel), getSpecificUser);
 router.delete(
-  "/users/:id",
+  "/alluser/:id",
   bearer(userModel),
   permissionsAccess("delete"),
   deleteUser
@@ -65,6 +76,22 @@ router.put(
   updatePet
 ); // by  admin // chek update
 
+//////////////////////////////////
+router.put(
+  "/adoptionpet/:id",
+  bearer(userModel),
+  permissionsAccess("update"),
+  takePet
+); // take Pet by admin
+////////////////////////////////
+router.put(
+  "/adoptionpetUser/:id",
+  bearer(userModel),
+  permissionsAccess("show"),
+  takePetUser
+); // take Pet by user
+///////////////////////////////
+
 router.post("/adapt", bearer(userModel), permissionsAccess("add"), addPet); // by  admin // chek add
 
 //// appointment //////
@@ -75,7 +102,7 @@ router.put("/book/:id", bearer(userModel), updateBook); // just by user
 
 router.delete(
   "/appointment/:id",
-  bearer(admin),
+  bearer(userModel),
   permissionsAccess("delete"),
   deleteBook
 ); //  by admin
