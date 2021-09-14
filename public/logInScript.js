@@ -30,6 +30,7 @@ async function getData() {
 }
 
 async function signInFunction(userName, userPassword) {
+
   // Send a GET request with the authorization header set to
   let uri = "https://gold-team-mid-project.herokuapp.com/signin";
 
@@ -51,7 +52,7 @@ async function signInFunction(userName, userPassword) {
       if (response.ok) {
         return response.json();
       } else {
-        alert("Invalid login");
+        
         throw new Error("BAD HTTP stuff");
       }
     })
@@ -66,5 +67,55 @@ async function signInFunction(userName, userPassword) {
     })
     .catch((err) => {
       console.log("ERROR:", err.message);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Invalid userName or Password',
+        footer: err.message,
+      })
     });
+}
+
+
+
+
+
+let up = document.getElementById('signUpForm')
+
+up.addEventListener('submit', signUp)
+
+async function signUp(e){
+  e.preventDefault();
+//____userName
+
+  let name = e.target.userName.value
+  let pass = e.target.userPassword.value
+  let phone = e.target.userPhone.value
+  let address = e.target.userAddress.value
+  let gender = e.target.userGender.value
+
+
+
+////////////////////////////////
+let uri = "https://gold-team-mid-project.herokuapp.com/signup";
+let userOBJ = {
+  user_name:name,
+  user_password: pass,
+  user_phone: phone,
+  user_gender: gender,
+  user_address: address
+
+}
+let newUser = await axios.post(uri,userOBJ ).then(data=>{
+  console.log(data)
+  Swal.fire(
+    'Your Account Successfully Created 😊👌 ',
+    `Welcome ${data.data.user_name}`,
+    'success'
+  )
+})
+////////////////////////////////
+
+  
 }
