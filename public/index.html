@@ -8,53 +8,30 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">
-            <h3>Realtime Exam Room</h3>
-        </div>
-       
-        <div class="card">
-            <div>Teacher Name :<div class="card-header"> Anonymous </div></div>
-            <div class="card-body">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="username" placeholder="Change your username" >
-                    <div class="input-group-append">
-                        <button class="btn btn-warning" type="button" id="usernameBtn">Change</button>
-                    </div>
-                </div>
-            </div>
-            <div class="message-box">
-                <ul class="list-group list-group-flush" id="message-list"></ul>
-                <div class="info"></div>
-            </div>
-            
-            <div class="card-footer">
-                <div class="input-group">
-                    <input type="text" class="form-control" id="message" placeholder="Send new question" >
-                    <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="messageBtn">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+       <div class="card" >
+        <form id="logInForm" style="height: 500px;">
+            <fieldset>
+                <legend > Sign In </legend>
 
-        <dev>
-            <div id="video-grid"></div>
-    
-            
-        </dev>
+                <input type="text" placeholder="Your Name" name="userName" />
 
+                <br/>
+
+                <input type="password" placeholder="Your Password" name="userPassword" />
+
+                <br/>
+
+                <input type="submit" />
+
+            </fieldset>
+        </form>
+    </div>
     </div>
 
-    <script defer src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="/script.js" defer></script>
-
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./script.js"></script>
-
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
-
-    <script src="./js/chatroom.js"></script>
+    <script src="./logInScript.js" ></script>
 </body>
 </html>
