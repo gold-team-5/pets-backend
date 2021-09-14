@@ -30,6 +30,8 @@ const {
   deletePet,
   addPet,
   updatePet,
+  takePet,
+  takePetUser,
 } = require("./adoption");
 const {
   getAllBooking,
@@ -73,6 +75,22 @@ router.put(
   permissionsAccess("update"),
   updatePet
 ); // by  admin // chek update
+
+//////////////////////////////////
+router.put(
+  "/adoptionpet/:id",
+  bearer(userModel),
+  permissionsAccess("update"),
+  takePet
+); // take Pet by admin
+////////////////////////////////
+router.put(
+  "/adoptionpetUser/:id",
+  bearer(userModel),
+  permissionsAccess("show"),
+  takePetUser
+); // take Pet by user
+///////////////////////////////
 
 router.post("/adapt", bearer(userModel), permissionsAccess("add"), addPet); // by  admin // chek add
 

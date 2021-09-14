@@ -10,7 +10,10 @@ const petModel = (sequelize, DataTypes) => {
     pet_type: {
       type: DataTypes.STRING,
     },
-
+    pet_states: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
     user_id: {
       type: DataTypes.INTEGER,
     },
