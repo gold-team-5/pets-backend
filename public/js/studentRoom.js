@@ -1,6 +1,32 @@
 
+
 (function connect() {
     let socket = io.connect()
+
+    let userID
+
+    let usersList = document.getElementById('subject')
+    let userOption
+    getUsers()
+
+    async function getUsers() {
+        await axios.get('http://localhost:3000/alluser').then(data => {
+            console.log(data.data);
+            data.data.forEach(users => {
+                userOption = document.createElement('option')
+                userOption.value = users.id
+                userOption.textContent = users.name
+
+                usersList.appendChild(userOption)
+
+               
+            })
+            usersList.onchange = function a() {
+                userID = usersList.value
+                console.log(userID)
+            }
+        })
+    }
     
     socket.on('newmssg', payload => {
 
@@ -17,32 +43,32 @@
 
 
 
-    let username = document.querySelector('#username')
-    let userID = document.querySelector('#userID')
-    let usernameBtn = document.querySelector('#usernameBtn')
+    
+
+    
     let curUsername = document.querySelector('.card-header')
 
 
 
 
-    usernameBtn.addEventListener('click', changeName)
-    function changeName(e) {
+    
+    function changeName() {
 
-        console.log(username.value)
-        socket.emit('change_username', { username: username.value })
-        curUsername.textContent = username.value
-        username.value = ''
+        console.log(username)
+        socket.emit('change_username', { username: username })
+        curUsername.textContent = username
+        
     }
 
     //  local storage
     const userStorageData = localStorage.getItem('userData');
-    if(userStorageData == null){
-        location.replace("https://gold-team-mid-project.herokuapp.com")
+    if (userStorageData == null) {
+        location.replace("https://gold-team-mid-project.herokuapp.com/")
 
     }
     const userStorageDataFromJSON = JSON.parse(userStorageData)
     console.log(userStorageDataFromJSON.user)
-    username.value = userStorageDataFromJSON.user.user_name
+    username = userStorageDataFromJSON.user.user_name
     let myID = userStorageDataFromJSON.user.id
     changeName()
 
@@ -52,17 +78,17 @@
 
     messageBtn.addEventListener('click', e => {
 
-        let id = userID.value
+        let id = userID
 
 
 
         console.log(message.value)
         socket.emit('new_message', { message: message.value, id: id })
         let listItem = document.createElement('li')
-            listItem.textContent = 'Me ' + ' :: ' + message.value
-            listItem.classList.add('list-group-item')
-            
-            messageList.appendChild(listItem)
+        listItem.textContent = 'Me ' + ' :: ' + message.value
+        listItem.classList.add('list-group-item')
+
+        messageList.appendChild(listItem)
         message.value = ''
         console.log(id);
         console.log(myID);
@@ -74,12 +100,12 @@
 
     socket.on('receive_message', data => {
         if (myID == data.id) {
-            
+
             console.log(data)
             let listItem = document.createElement('li')
             listItem.textContent = data.username + ' :: ' + data.message
             listItem.classList.add('list-group-item')
-            
+
             messageList.appendChild(listItem)
             console.log('---------------');
         }

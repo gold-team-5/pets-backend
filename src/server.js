@@ -80,17 +80,27 @@ io.on("connection", (socket) => {
   console.log("New user connected");
 
   socket.username = "Anonymous";
-
+////////
+socket.on('join-room', (roomId, userId) => {
+  socket.join(roomId)  // Join the room
+  socket.broadcast.emit('user-connected', userId) // Tell everyone else in the room that we joined
+  
+  // Communicate the disconnection
+  socket.on('disconnect', () => {
+      socket.broadcast.emit('user-disconnected', userId)
+  })
+})
+////////
   //video function
 
-  socket.on("join-room", (ROOM_ID, id) => {
-    socket.join(ROOM_ID);
-    socket.to(ROOM_ID).broadcast.emit("user-connected", id);
+  // socket.on("join-room", (ROOM_ID, id) => {
+  //   socket.join(ROOM_ID);
+  //   socket.to(ROOM_ID).broadcast.emit("user-connected", id);
 
-    socket.on("disconnect", () => {
-      socket.to(ROOM_ID).broadcast.emit("user-disconnected", id);
-    });
-  });
+  //   socket.on("disconnect", () => {
+  //     socket.to(ROOM_ID).broadcast.emit("user-disconnected", id);
+  //   });
+  // });
   //change user name function
 
   socket.on("change_username", (data) => {

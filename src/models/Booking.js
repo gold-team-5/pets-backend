@@ -17,6 +17,7 @@ const BookModel = (sequelize, DataTypes) => {
     },
     book_time: {
       type: DataTypes.TIME,
+      unique: true,
     },
   });
 
