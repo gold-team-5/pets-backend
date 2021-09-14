@@ -114,7 +114,16 @@ let newUser = await axios.post(uri,userOBJ ).then(data=>{
     `Welcome ${data.data.user_name}`,
     'success'
   )
-})
+}).catch((err) => {
+  console.log("ERROR:", err.message);
+
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: 'Invalid userName or Password',
+    footer: err.message,
+  })
+});
 ////////////////////////////////
 
   
