@@ -10,7 +10,7 @@
     getUsers()
 
     async function getUsers() {
-        await axios.get('http://localhost:3000/alluser').then(data => {
+        await axios.get('https://gold-team-mid-project.herokuapp.com/alluser').then(data => {
             console.log(data.data);
             data.data.forEach(users => {
                 userOption = document.createElement('option')
