@@ -36,10 +36,12 @@ async function signInFunction(userName, userPassword) {
 
 
     // Send a GET request with the authorization header set to
-    let uri = "https://gold-team-mid-project.herokuapp.com/signin";
+    let uri = "http://localhost:3000/signin";
 
     let h = new Headers();
     h.append(userName, userPassword);
+    console.log(h);
+    
     let encoded = window.btoa(`${userName}:${userPassword}`);
     let auth = 'Basic ' + encoded;
     h.append('Authorization', auth);
@@ -64,7 +66,7 @@ async function signInFunction(userName, userPassword) {
             let storageData = JSON.stringify(jsonData)
 
             localStorage.setItem('userData', storageData)
-            location.replace("https://gold-team-mid-project.herokuapp.com/userChatPage")
+            // location.replace("http://localhost:3000/userChatPage")
 
         })
         .catch((err) => {
