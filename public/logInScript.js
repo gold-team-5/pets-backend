@@ -120,7 +120,7 @@ let newUser = await axios.post(uri,userOBJ ).then(data=>{
   Swal.fire({
     icon: 'error',
     title: 'Oops...',
-    text: 'Invalid userName or Password',
+    text: 'This userName is alreday taken try another one 😭💔',
     footer: err.message,
   })
 });
