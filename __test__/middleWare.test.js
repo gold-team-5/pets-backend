@@ -50,8 +50,13 @@ describe("acl MiddleWare", () => {
   it("permissionsAccess", async () => {
     await permissionsAccess(mockRequest, mockResponse, nextFunction());
 
-    expect(nextFunction).toHaveBeenCalled();
+    expect(nextFunction).toHaveBeenCalledWith();
   });
+  // it("permissionsAccess", async () => {
+  //   let result = await permissionsAccess(('admin'),mockRequest, mockResponse, nextFunction());
+
+  //   expect(result).toBe('s');
+  // });
 
   it("userBooking", async () => {
     await userBooking(mockRequest, mockResponse, nextFunction());
