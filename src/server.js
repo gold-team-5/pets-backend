@@ -1,6 +1,9 @@
 "use strict";
 const express = require("express");
+const cors = require('cors')
 const app = express();
+app.use(cors())
+
 app.use(express.json());
 require("dotenv").config();
 const authRoutes = require("./routs/routes");
@@ -171,4 +174,5 @@ db.sync()
 //
 module.exports = {
   app: app,
+  productRoute:productRoute
 }

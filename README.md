@@ -124,9 +124,14 @@ Dealing with animal rights organizations and expanding the adoption system in ou
 
 ### Data Flow
 
+
+ RelationalSchema
+
+![RelationalSchema](RelationalSchema.png)
+
  ER diagram
 
- ![diagram](image1.png)
+ ![diagram](image.png)
 
  context Diagram
 
