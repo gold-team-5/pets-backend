@@ -7,7 +7,7 @@ const { Sequelize, DataTypes } = require("sequelize");
 const { describe, beforeAll, afterAll } = require("@jest/globals");
 const userModel = require("../src/models/user");
 const sequelize = new Sequelize(
-  "postgres://ffgqxyhx:Ah1vctI8ocTRZBGSbTqsahuqVT5GLuyB@chunee.db.elephantsql.com/ffgqxyhx"
+  "postgres://vopqhctf:JP90Xexw-5o1QRDCHY2WS5n4Y6dNKFaw@chunee.db.elephantsql.com/vopqhctf"
 );
 const Users = userModel(sequelize, DataTypes);
 beforeAll(async () => {
@@ -15,7 +15,7 @@ beforeAll(async () => {
 });
 describe("Bearer Auth", () => {
   let userInfo = {
-    user_name: "Test User",
+    user_name: "tesst user",
     user_password: "123",
   };
   it("should create a user with a hashed password", async () => {

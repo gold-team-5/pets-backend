@@ -38,10 +38,7 @@ app.get("/", (req, res) => {
 
 
 //check if we need that
-app.get('/student', (req, res) => {
-  res.sendFile(__dirname + '/views/student.html')
 
-})
 
 
 app.get("/adminChatPage", (req, res) => {

@@ -12,7 +12,7 @@ async function getAll(req, res) {
   let allData = await userModel.findAll({});
 
   let userModelNames = allData.map((names) => {
-    return names.user_name; //  Check user name from schema
+    return ({name : names.user_name, id: names.id}); //  Check user name from schema
   });
   res.status(200).json(userModelNames);
 }

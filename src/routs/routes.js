@@ -21,7 +21,7 @@ authRoutes.post("/signup", async (req, res) => {
     res.status(201).json(userRecord);
   } catch (e) {
     console.log(e.message, "................................");
-    res.send(e.message);
+    res.status(500).send(e.message);
   }
 });
 
