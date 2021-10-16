@@ -73,12 +73,14 @@ async function updateBookUser(req, res) {
 
 // add book
 async function addBook(req, res) {
+  console.log(',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,',req)
   try {
+   
     let BookRecord = await BookModel.create(req.body);
-
+console.log(`llllllllllllllllllllllllllllll${BookRecord}llllllllllllllll${req.body}lllllllllllll`)
     res.status(201).json(BookRecord);
   } catch (e) {
-    console.log(e.message, "................................");
+    console.log(e.message, ".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..");
     res.send(e.message);
   }
 }

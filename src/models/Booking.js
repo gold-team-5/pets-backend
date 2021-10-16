@@ -12,11 +12,9 @@ const BookModel = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
 
-    book_date: {
-      type: DataTypes.DATEONLY,
-    },
+  
     book_time: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       unique: true,
     },
   });

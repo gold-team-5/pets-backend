@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = (data) => (req, res, next) => {
+  console.log(data)
   if (!req.headers.authorization) {
     console.error(`No authorization header found - jwt`);
     next("Invalid login");
@@ -18,5 +19,5 @@ module.exports = (data) => (req, res, next) => {
       req.user = user;
       next();
     })
-    .catch((err) => next("Invalid login"));
+    .catch((err) => next(".>>>>>>>>>>>>>>>>>>>>>>>>>>>.Invalid login"));
 };

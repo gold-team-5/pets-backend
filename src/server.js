@@ -65,7 +65,7 @@ app.use("*", handler404);
 //this is port 
 let port = process.env.PORT;
 // listen Function
-const server = app.listen(port || 3000, () =>
+const server = app.listen(port || 3001, () =>
   console.log(`Server is up on port ${port} 👍`)
 );
 

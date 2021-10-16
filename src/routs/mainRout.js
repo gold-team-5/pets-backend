@@ -16,7 +16,7 @@ const {
   BookModel,
   productModel,
 } = require("../models/index");
-
+console.log(userModel)
 // import all function
 const {
   getAll,
@@ -109,15 +109,15 @@ router.delete(
 
 router.put(
   "/delbook/:id",
-  bearer(userModel),
+   bearer(userModel),
   userBooking(BookModel),
   updateBookUser
 ); //  just by user // back to check userBooking !!
 
 router.post(
   "/newAppointment",
-  bearer(userModel),
-  permissionsAccess("add"),
+   bearer(userModel),
+   permissionsAccess("add"),
   addBook
 ); // by user or admin
 
