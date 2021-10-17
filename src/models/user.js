@@ -34,8 +34,8 @@ const userModel = (sequelize, DataTypes) => {
       type: DataTypes.VIRTUAL,
       get() {
         const acl = {
-          admin: ["update", "delete", "add", "show"],
-          user: ["show"],
+          admin: ["update", "delete", "add", "show","delAppointment"],
+          user: ["show","delAppointment"],
           doctor: ["show"],
         };
 

@@ -88,6 +88,7 @@
         listItem.textContent = 'Me ' + ' :: ' + message.value
         listItem.classList.add('list-group-item')
 
+
         messageList.appendChild(listItem)
         message.value = ''
         console.log(id);
