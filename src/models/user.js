@@ -18,6 +18,7 @@ const userModel = (sequelize, DataTypes) => {
     user_phone: {
       type: DataTypes.INTEGER,
     },
+
     user_address: {
       type: DataTypes.STRING,
     },
@@ -57,6 +58,12 @@ const userModel = (sequelize, DataTypes) => {
         let token = jwt.sign(tokenObj, SECRET);
         return token;
       },
+    },
+    user_email: {
+      type: DataTypes.STRING,
+    },
+    user_img: {
+      type: DataTypes.STRING,
     },
   });
 

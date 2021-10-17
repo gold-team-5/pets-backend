@@ -7,7 +7,13 @@ const petModel = (sequelize, DataTypes) => {
     pet_age: {
       type: DataTypes.STRING,
     },
+    pet_img: {
+      type: DataTypes.STRING,
+    },
     pet_type: {
+      type: DataTypes.STRING,
+    },
+    pet_desc: {
       type: DataTypes.STRING,
     },
     pet_states: {

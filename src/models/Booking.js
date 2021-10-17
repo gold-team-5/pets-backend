@@ -17,6 +17,9 @@ const BookModel = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       unique: true,
     },
+    book_userid: {
+      type: DataTypes.STRING,
+    },
   });
 
   return model;
