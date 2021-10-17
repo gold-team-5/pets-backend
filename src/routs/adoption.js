@@ -55,7 +55,7 @@ async function updatePet(req, res) {
 
   await upObj.update(obj);
 
-  res.status(202).json(`id : ${id} --- Successfully Update`);
+  res.status(202).json(obj);
 }
 
 // take pet by admin

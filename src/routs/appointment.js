@@ -32,7 +32,7 @@ async function updateBook(req, res) {
 
     await bookDta.update(obj);
 
-    res.status(202).json(`Booking done 😀 `);
+    res.status(202).send(bookDta);
   } else {
     res
       .status(400)
