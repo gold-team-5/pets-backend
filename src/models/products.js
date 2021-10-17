@@ -4,6 +4,12 @@ const productModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       required: true,
     },
+    product_img: {
+      type: DataTypes.STRING,
+    },
+    product_desc: {
+      type: DataTypes.STRING,
+    },
     product_type: {
       type: DataTypes.STRING,
     },
