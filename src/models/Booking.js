@@ -8,6 +8,7 @@ const BookModel = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
+    //for admin
     user_id: {
       type: DataTypes.INTEGER,
     },

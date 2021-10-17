@@ -49,6 +49,10 @@ const userModel = (sequelize, DataTypes) => {
         return jwt.sign(
           {
             user_name: this.user_name,
+            id:this.id,
+            user_address:this.user_address,
+            user_phone:this.user_phone,
+
             capabilities: this.capabilities, // this is the perfarable way in order to check the permissions
           },
           SECRET
