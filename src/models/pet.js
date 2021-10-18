@@ -23,6 +23,10 @@ const petModel = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
     },
+    pet_userid: {
+      type: DataTypes.STRING,
+    },
+
   });
 
   return model;
