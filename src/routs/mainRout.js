@@ -39,6 +39,7 @@ const {
   deleteBook,
   updateBookUser,
   addBook,
+  cancelBook
 } = require("./appointment");
 
 ///// admin //////
@@ -98,7 +99,8 @@ router.post("/adapt", bearer(userModel), permissionsAccess("add"), addPet); // b
 
 router.get("/appointment", getAllBooking); // by user or admin
 
-router.put("/book/:id", bearer(userModel), updateBook); // just by user
+router.put("/book/:id", bearer(userModel), updateBook); // just by book appointment
+router.put("/bookfromuser/:id", bearer(userModel), cancelBook); // just by user to cancel appiontment
 
 router.delete(
   "/appointment/:id",
