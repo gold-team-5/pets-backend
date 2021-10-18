@@ -82,7 +82,8 @@ router.put(
   "/adoptionpet/:id",
   bearer(userModel),
   permissionsAccess("update"),
-  takePet
+  
+  
 ); // take Pet by admin
 ////////////////////////////////
 router.put(

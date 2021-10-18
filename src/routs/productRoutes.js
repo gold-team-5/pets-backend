@@ -13,8 +13,7 @@ const permissions = require("../middleWare/acl");
 // get all products from user,admin
 productsRouter.get(
   "/products",
-  bearerAuth(userModel),
-  permissions("show"),
+ 
   async (req, res) => {
     const products = await productModel.findAll({});
     const list = products.map((product) => {
@@ -24,7 +23,8 @@ productsRouter.get(
         product_price: product.product_price,
       };
     });
-    res.status(200).json(list);
+    console.log(products)
+    res.status(200).send(products);
   }
 );
 // get specific product user,admin
@@ -60,6 +60,7 @@ productsRouter.put(
     let newProuductInfo = req.body;
     let Product = await productModel.findOne({ where: { id } });
     let updateProduct = await Product.update(newProuductInfo);
+  
     res.status(202).json(updateProduct);
   }
 );
