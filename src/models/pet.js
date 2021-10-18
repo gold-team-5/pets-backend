@@ -8,8 +8,8 @@ const petModel = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     
-   pet_userID:{
-    type: DataTypes.STRING,
+   pet_q:{
+    type: DataTypes.INTEGER,
    },
     pet_img: {
       type: DataTypes.STRING,

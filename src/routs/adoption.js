@@ -71,6 +71,7 @@ async function takePet(req, res) {
     //   user_id: null,
     // };
     let obj = req.body;
+    
     await petDta.update(obj);
 
     res.status(202).send(petDta);
