@@ -65,14 +65,14 @@ async function takePet(req, res) {
   const petDta = await petModel.findOne({ where: { id } });
 
   if (petDta.pet_states == true) {
-    let obj = {
-      pet_states: false,
-      user_id: null,
-    };
-
+    // let obj = {
+    //   pet_states: false,
+    //   user_id: null,
+    // };
+    let obj = req.body;
     await petDta.update(obj);
 
-    res.status(202).json(`You pick the pet know 🐾🐾🐾`);
+    res.status(202).send(petDta);
   } else {
     res.status(400).send(" This pet has already been taken ⛔  ");
   }
