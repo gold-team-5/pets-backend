@@ -34,6 +34,7 @@ async function deletePet(req, res) {
 
 // add pet
 async function addPet(req, res) {
+  console.log('jjjjjjjjjjjjjjjjj',req.body)
   try {
     let petRecord = await petModel.create(req.body);
 
@@ -70,6 +71,7 @@ async function takePet(req, res) {
     //   user_id: null,
     // };
     let obj = req.body;
+    
     await petDta.update(obj);
 
     res.status(202).send(petDta);
