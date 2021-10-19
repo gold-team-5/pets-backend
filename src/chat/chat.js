@@ -36,8 +36,8 @@ class Connection {
   handleMessage(value) {
     const message = {
       id: uuidv4(),
-      user: users.get(this.socket) || defaultUser,
-      value,
+      user: value.useName || defaultUser,
+      value:value.value,
       time: Date.now()
     };
 

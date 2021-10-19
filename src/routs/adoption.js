@@ -61,18 +61,19 @@ async function updatePet(req, res) {
 // take pet by admin
 async function takePet(req, res) {
   const id = req.params.id; //  Check the id
-
+  // pet Id
+  
   const petDta = await petModel.findOne({ where: { id } });
 
-  if (petDta.pet_states == true) {
+  if (petDta.pet_states == false && petDta.user_id==null) {
     let obj = {
       pet_states: false,
-      user_id: null,
+      user_id:petDta.requestId
     };
 
     await petDta.update(obj);
 
-    res.status(202).json(`You pick the pet know 🐾🐾🐾`);
+    res.status(202).json(petDta);
   } else {
     res.status(400).send(" This pet has already been taken ⛔  ");
   }
@@ -81,16 +82,44 @@ async function takePet(req, res) {
 // take pet by user
 async function takePetUser(req, res) {
   // const id = req.params.id; //  Check the id
+  // state=false  userId=null  requestId=id
+  const id = req.params.id;
+  const requestId = req.params.requestId
 
-  res.status(202).json(`You should contact with admin 🐾`);
+  console.log(`${id} + ${requestId}`);
+  console.log(typeof requestId);
+
+  const intID = parseInt(requestId)
+
+  const petDta = await petModel.findOne({ where: { id } });
+
+  console.log(petDta);
+
+  if (petDta.pet_states == true) {
+    let obj = {
+      pet_states: false,
+      user_id: null,
+      requestId:intID
+      
+    };
+
+    console.log(obj);
+
+    await petDta.update(obj);
+
+    res.status(202).send(petDta);
+  }
+  else{
+    console.log("----------------------------------------");
+  }
 }
 
-module.exports = {
-  getAllPet,
-  getSpecificPet,
-  deletePet,
-  addPet,
-  updatePet,
-  takePet,
-  takePetUser,
-};
+  module.exports = {
+    getAllPet,
+    getSpecificPet,
+    deletePet,
+    addPet,
+    updatePet,
+    takePet,
+    takePetUser,
+  };
