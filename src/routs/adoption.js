@@ -34,6 +34,7 @@ async function deletePet(req, res) {
 
 // add pet
 async function addPet(req, res) {
+  console.log('jjjjjjjjjjjjjjjjj',req.body)
   try {
     let petRecord = await petModel.create(req.body);
 
@@ -65,6 +66,7 @@ async function takePet(req, res) {
   
   const petDta = await petModel.findOne({ where: { id } });
 
+
   if (petDta.pet_states == false && petDta.user_id==null) {
     let obj = {
       pet_states: false,
@@ -74,6 +76,7 @@ async function takePet(req, res) {
     await petDta.update(obj);
 
     res.status(202).json(petDta);
+
   } else {
     res.status(400).send(" This pet has already been taken ⛔  ");
   }

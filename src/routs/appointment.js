@@ -40,6 +40,25 @@ async function updateBook(req, res) {
   }
 }
 
+//cancel book from user 
+async function cancelBook(req, res) {
+  const id = req.params.id; //  Check the id
+
+  const bookDta = await BookModel.findOne({ where: { id } });
+
+  if (bookDta.book_states == false) {
+    let obj = req.body;
+
+    await bookDta.update(obj);
+
+    res.status(202).send(bookDta);
+  } else {
+    res
+      // .status(400)
+      .send("This appointment has already been taken, try again 👽 ");
+  }
+}
+
 // dele book by admin
 
 // Delete Specific book by admin
@@ -73,11 +92,11 @@ async function updateBookUser(req, res) {
 
 // add book
 async function addBook(req, res) {
-  console.log(',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,',req)
+  
   try {
    
     let BookRecord = await BookModel.create(req.body);
-console.log(`llllllllllllllllllllllllllllll${BookRecord}llllllllllllllll${req.body}lllllllllllll`)
+
     res.status(201).json(BookRecord);
   } catch (e) {
     console.log(e.message, ".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..");
@@ -94,4 +113,5 @@ module.exports = {
   deleteBook,
   updateBookUser,
   addBook,
+  cancelBook
 };
