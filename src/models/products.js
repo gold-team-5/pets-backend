@@ -20,6 +20,9 @@ const productModel = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.INTEGER,
     },
+    product_userID: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   return model;
