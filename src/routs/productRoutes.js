@@ -53,7 +53,6 @@ productsRouter.post(
 productsRouter.put(
   "/product/:id",
   bearerAuth(userModel),
-  permissions("update"),
   async (req, res) => {
     const id = parseInt(req.params.id);
 

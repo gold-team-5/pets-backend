@@ -52,6 +52,8 @@ const userModel = (sequelize, DataTypes) => {
             id:this.id,
             user_address:this.user_address,
             user_phone:this.user_phone,
+            user_email:this.user_email,
+            user_img:this.user_img,
 
             capabilities: this.capabilities, // this is the perfarable way in order to check the permissions
           },
