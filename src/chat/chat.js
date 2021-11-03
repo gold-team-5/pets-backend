@@ -8,7 +8,7 @@ const defaultUser = {
   name: 'Anonymous',
 };
 
-const messageExpirationTimeMS = 5*60 * 1000;
+const messageExpirationTimeMS = 5 * 60 * 1000;
 
 class Connection {
   constructor(io, socket) {
@@ -19,69 +19,69 @@ class Connection {
     socket.on('message', (value) => this.handleMessage(value));
     socket.on('disconnect', () => this.disconnect());
 
-      socket.on('new_message', data => {
-    console.log("new message")
-    io.sockets.emit('receive_message', { message: data.message, username: socket.username, id: data.id })
+    socket.on('new_message', data => {
+      console.log("new message")
+      io.sockets.emit('receive_message', { message: data.message, username: socket.username, id: data.id })
 
 
-//     let id = uuid()
+          let id = uuid()
 
 
-//     //add massge to queue 
+      //     //add massge to queue 
 
-    console.log("new message", data.message);
-    io.sockets.emit("receive_message", {
-      message: data.message,
-      username: socket.username,
-      id: data.id,
-    });
-    queueMassage.massage[id] = {
-      message: data.message,
-      username: socket.username,
-      id: data.id,
-    }
-
-//     console.log('queue massage after save', queueMassage.massage)
-  });
-//   //get all massage from queue
-
-  socket.on('getAll', (myID) => {  //  my
-    Object.keys(queueMassage.massage).forEach(id => {
-      console.log(queueMassage.massage[id].id)  //  reciver
-
-      if (queueMassage.massage[id].id == myID) {
-        socket.emit('newmssg', { id, massage: queueMassage.massage[id] });
+      console.log("new message", data.message);
+      io.sockets.emit("receive_message", {
+        message: data.message,
+        username: socket.username,
+        id: data.id,
+      });
+      queueMassage.massage[id] = {
+        message: data.message,
+        username: socket.username,
+        id: data.id,
       }
 
-    })
-  });
-  //delete massage from queue  after user recevied 
-  socket.on('received', id => {
-    delete queueMassage.massage[id];
-    console.log('queue after del ', queueMassage.massage[id])
-  });
+      //     console.log('queue massage after save', queueMassage.massage)
+    });
+    //   //get all massage from queue
+
+    socket.on('getAll', (myID) => {  //  my
+      Object.keys(queueMassage.massage).forEach(id => {
+        console.log(queueMassage.massage[id].id)  //  reciver
+
+        if (queueMassage.massage[id].id == myID) {
+          socket.emit('newmssg', { id, massage: queueMassage.massage[id] });
+        }
+
+      })
+    });
+    //delete massage from queue  after user recevied 
+    socket.on('received', id => {
+      delete queueMassage.massage[id];
+      console.log('queue after del ', queueMassage.massage[id])
+    });
 
 
     socket.on('connect_error', (err) => {
       console.log(`connect_error due to ${err.message}`);
     });
   }
-  
+
   sendMessage(message) {
-      this.io.sockets.emit('message', message);
+    this.io.sockets.emit('message', message);
   }
-  
+
   getMessages() {
     messages.forEach((message) => this.sendMessage(message));
   }
 
-  
+
 
   handleMessage(value) {
     const message = {
       id: uuidv4(),
       user: value.useName || defaultUser,
-      value:value.value,
+      value: value.value,
       time: Date.now()
     };
 
@@ -104,8 +104,8 @@ class Connection {
 
 function chat(io) {
   io.on('connection', (socket) => {
-      console.log('---------------------s');
-    new Connection(io, socket);   
+    console.log('---------------------s');
+    new Connection(io, socket);
   });
 };
 
