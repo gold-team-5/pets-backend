@@ -83,7 +83,7 @@
 
 
         console.log(message.value)
-        socket.emit('new_message', { message: message.value, id: id })
+        socket.emit('new_message', { username:username, message: message.value, id: id })
         let listItem = document.createElement('li')
         listItem.textContent = 'Me ' + ' :: ' + message.value
         listItem.classList.add('list-group-item')
@@ -104,7 +104,7 @@
 
             console.log(data)
             let listItem = document.createElement('li')
-            listItem.textContent = data.username + ' :: ' + data.message
+            listItem.textContent = data.username + ' :: ' + data.message + '----s'
             listItem.classList.add('list-group-item')
 
             messageList.appendChild(listItem)

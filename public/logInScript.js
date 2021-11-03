@@ -62,7 +62,7 @@ async function signInFunction(userName, userPassword) {
 
       localStorage.setItem("userData", storageData);
       location.replace(
-        "https://gold-team-mid-project.herokuapp.com/userChatPage"
+        "http://localhost:3008/userChatPage"
       );
     })
     .catch((err) => {

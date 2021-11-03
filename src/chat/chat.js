@@ -1,5 +1,8 @@
 const uuidv4 = require('uuid').v4;
 
+// const { v4: uuidV4 } = require("uuid");
+const uuid = require('uuid').v4;// random uuid
+
 const messages = new Set();
 const users = new Map();
 
@@ -7,6 +10,12 @@ const defaultUser = {
   id: 'anon',
   name: 'Anonymous',
 };
+
+let queueMassage = {
+  massage: {
+
+  }
+}
 
 const messageExpirationTimeMS = 5 * 60 * 1000;
 
@@ -21,7 +30,7 @@ class Connection {
 
     socket.on('new_message', data => {
       console.log("new message")
-      io.sockets.emit('receive_message', { message: data.message, username: socket.username, id: data.id })
+      io.sockets.emit('receive_message', { message: data.message, username: data.username, id: data.id })
 
 
           let id = uuid()
@@ -30,14 +39,10 @@ class Connection {
       //     //add massge to queue 
 
       console.log("new message", data.message);
-      io.sockets.emit("receive_message", {
-        message: data.message,
-        username: socket.username,
-        id: data.id,
-      });
+      
       queueMassage.massage[id] = {
         message: data.message,
-        username: socket.username,
+        username: data.username,
         id: data.id,
       }
 
